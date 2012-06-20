@@ -16,6 +16,19 @@ class Score {
 	String arcadeName
 	
 	String toString() {
-		"${player}:${score}"
+		"${score} : ${player}"
 	}
+	
+	String toStringWithGame() {
+		"${score} : ${game}"
+	}
+	
+	static mapping = {
+		sort score: "asc"
+	}
+	
+	BigInteger getScore(){
+		return this.score
+	}
+	
 }

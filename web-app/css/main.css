@@ -37,25 +37,25 @@ html * {
 }
 
 body {
-	background: #ffffff;
+	background: #E6E6E6;
 	color: #333333;
 	margin: 0 auto;
 	max-width: 960px;
 	overflow-x: hidden; /* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
-	   -moz-box-shadow: 0 0 0.3em #255b17;
-	-webkit-box-shadow: 0 0 0.3em #255b17;
-	        box-shadow: 0 0 0.3em #255b17;
+	   -moz-box-shadow: 0 0 0.3em #5B5B5B;
+	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
+	        box-shadow: 0 0 0.3em #5B5B5B;
 }
 
-#grailsLogo {
-	background-color: #abbf78;
+#RcadeLogo {
+	background-color: #6E6E6E;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
 .ie6 body,
 .ie7 body,
 .ie8 body {
-	border-color: #255b17;
+	border-color: #6E6E6E;
 	border-style: solid;
 	border-width: 0 1px;
 }
@@ -73,7 +73,7 @@ a:hover, a:active {
 }
 
 h1 {
-	color: #48802c;
+	color: #73C167;
 	font-weight: normal;
 	font-size: 1.25em;
 	margin: 0.8em 0 0.3em 0;
@@ -108,7 +108,7 @@ img {
 }
 
 .footer {
-	background: #abbf78;
+	background: #6E6E6E;
 	color: #000;
 	clear: both;
 	font-size: 0.8em;

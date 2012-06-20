@@ -26,7 +26,8 @@ class BootStrap {
 			player:zach,
 			game:pacman,
 			score: 42000,
-			cabinetID:0
+			cabinetID:0,
+			arcadeName: "ZPM"
 			)
 		testScore.save()
 		if(testScore.hasErrors()){

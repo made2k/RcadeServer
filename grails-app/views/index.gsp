@@ -1,122 +1,105 @@
 <!doctype html>
 <html>
-	<head>
-		<meta name="layout" content="main"/>
-		<title>R'Cade High Scores</title>
-		<style type="text/css" media="screen">
-			#status {
-				background-color: #eee;
-				border: .2em solid #fff;
-				margin: 2em 2em 1em;
-				padding: 1em;
-				width: 12em;
-				float: left;
-				-moz-box-shadow: 0px 0px 1.25em #ccc;
-				-webkit-box-shadow: 0px 0px 1.25em #ccc;
-				box-shadow: 0px 0px 1.25em #ccc;
-				-moz-border-radius: 0.6em;
-				-webkit-border-radius: 0.6em;
-				border-radius: 0.6em;
-			}
+<head>
+<meta name="layout" content="main" />
+<title>R'Cade High Scores</title>
+<style type="text/css" media="screen">
+#controller-list {
+	background-color: #D6D6D6;
+	border: .2em solid #E6E6E6;
+	margin: 2em 2em 1em;
+	padding: 1em;
+	width: 7em;
+	float: left;
+	-moz-box-shadow: 0px 0px 1.25em #ccc;
+	-webkit-box-shadow: 0px 0px 1.25em #ccc;
+	box-shadow: 0px 0px 1.25em #ccc;
+	-moz-border-radius: 0.6em;
+	-webkit-border-radius: 0.6em;
+	border-radius: 0.6em;
+}
 
-			.ie6 #status {
-				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
-			}
+.ie6 #controller-list {
+	display: inline;
+	/* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
+}
 
-			#status ul {
-				font-size: 0.9em;
-				list-style-type: none;
-				margin-bottom: 0.6em;
-				padding: 0;
-			}
-            
-			#status li {
-				line-height: 1.3;
-			}
+#controller-list ul {
+	font-size: 0.9em;
+	list-style-type: none;
+	list-style-position: inside;
+	margin-bottom: 0.6em;
+	padding: 0;
+}
 
-			#status h1 {
-				text-transform: uppercase;
-				font-size: 1.1em;
-				margin: 0 0 0.3em;
-			}
+#controller-list li {
+	line-height: 2.3;
+	list-style-position: inside;
+	font-size: 120%;
+	font-weight: bold;
+	margin: 0.25em 0;
+}
 
-			#page-body {
-				margin: 2em 1em 1.25em 18em;
-			}
+#controller-list h1 {
+	text-transform: uppercase;
+	font-size: 1.1em;
+	margin: 0 0 0.3em;
+}
 
-			h2 {
-				margin-top: 1em;
-				margin-bottom: 0.3em;
-				font-size: 1em;
-			}
+#page-body {
+	text-align: justify;
+	margin: 2em 1em 1.25em 14em;
+}
 
-			p {
-				line-height: 1.5;
-				margin: 0.25em 0;
-			}
+h2 {
+	margin-top: 1em;
+	margin-bottom: 0.3em;
+	font-size: 1em;
+}
 
-			#controller-list ul {
-				list-style-position: inside;
-			}
+p {
+	line-height: 1.5;
+	margin: 0.25em 0;
+}
 
-			#controller-list li {
-				line-height: 1.3;
-				list-style-position: inside;
-				margin: 0.25em 0;
-			}
+@media screen and (max-width: 480px) {
+	#status {
+		display: none;
+	}
+	#page-body {
+		margin: 0 1em 1em;
+	}
+	#page-body h1 {
+		margin-top: 0;
+	}
+}
+</style>
+</head>
+<body>
+	<a href="#page-body" class="skip"><g:message
+			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 
-			@media screen and (max-width: 480px) {
-				#status {
-					display: none;
-				}
+	<div id="controller-list" role="navigation">
+		<h1>View:</h1>
+		<ul>
+			<g:each var="c"
+				in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+				<g:if test="${c.name != 'Score' && c.name != 'User'}">
+					<li class="controller"><g:link controller="${c.name}" action="list">${c.name}s</g:link></li>
+				</g:if>
+			</g:each>
+		</ul>
+	</div>
 
-				#page-body {
-					margin: 0 1em 1em;
-				}
+	<div id="page-body" role="main">
+		<h1>Welcome to Rcade</h1>
+		<p>Rcade is a front-end interface for the MAME emulator. Rcade is
+			built off of Wah!Cade and adds networking and persistent high scores
+			for all of your favorite games. With Rcade you are able to play games
+			like Galaga and Airwolf and compete with your friends across
+			different machines. Battle it out for the high score!</p>
 
-				#page-body h1 {
-					margin-top: 0;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${org.codehaus.groovy.runtime.InvokerHelper.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
-		</div>
-		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
 
-			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
-				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
-				</ul>
-			</div>
-		</div>
-	</body>
+	</div>
+</body>
 </html>
