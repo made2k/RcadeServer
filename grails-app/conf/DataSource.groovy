@@ -1,8 +1,8 @@
 dataSource {
     pooled = true
     driverClassName = "com.mysql.jdbc.Driver"
-    username = "root"
-    password = "password"
+    username = "tester"
+    password = "test"
 	dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
 }
 hibernate {
@@ -15,7 +15,7 @@ environments {
     development {
         dataSource {
             dbCreate = "update"//"create-drop" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://127.0.0.1:3306/wahcade"
+            url = "jdbc:mysql://127.0.0.1:3306/ScoresDB"
         }
     }
     test {
