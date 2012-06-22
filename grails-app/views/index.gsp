@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="layout" content="main" />
-<title>R'Cade High Scores</title>
+<title>Rcade High Scores</title>
 <style type="text/css" media="screen">
 #controller-list {
 	background-color: #D6D6D6;
@@ -17,6 +17,7 @@
 	-moz-border-radius: 0.6em;
 	-webkit-border-radius: 0.6em;
 	border-radius: 0.6em;
+	text-align: center
 }
 
 .ie6 #controller-list {
@@ -36,7 +37,7 @@
 	line-height: 2.3;
 	list-style-position: inside;
 	font-size: 120%;
-	font-weight: bold;
+	font-weight: normal;
 	margin: 0.25em 0;
 }
 
