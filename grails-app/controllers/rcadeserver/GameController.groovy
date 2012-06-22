@@ -64,6 +64,12 @@ class GameController {
 			title = "Latest Scores For: " + theGame.gameName
 			link = "dummy.com"
 			description = "Latest scores posted for " + theGame.gameName
+			
+			latestScores.each(){
+				entry(it.player.name){
+					
+				}
+			}
 		}
 	}
 
