@@ -13,3 +13,5 @@ grails-app/conf/DataSource.groovy
 # Personal Boot Strap
 ###########################
 grails-app/conf/BootStrap.groovy
+
+SupportScripts/PostToYammer.py
