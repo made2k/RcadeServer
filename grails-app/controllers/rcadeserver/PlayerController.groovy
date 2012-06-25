@@ -70,6 +70,29 @@ class PlayerController {
 				break
 		}
 	}
+	
+	def RSS = {
+		// Find scores for this game
+		// Find x most recent scores for this game
+		// Render out an RSS XML document of these scores
+		// http://grails.org/plugin/feeds
+		def theID = params.int('id')
+		def thePlayer = Player.findById(theID)
+		def latestScores = Score.findAllByPlayer(thePlayer)
+		render(feedType:"rss", feedVersion:"2.0"){
+			title = "scores set by " + thePlayer.name
+			link = "dummy.com"
+			description = "High scores set by " + thePlayer.name
+			
+			latestScores.each(){ score ->
+				entry{
+					title = score.game.gameName + ": " + score.score
+					link = "http://localhost:8080/RcadeServer/score/show/${score.id}"
+					publishedDate = score.dateCreated
+				}
+			}
+		}
+	}
 
 
 

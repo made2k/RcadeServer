@@ -42,6 +42,14 @@
 					
 				</li>
 				</g:if>
+				
+				<li class="fieldcontain">
+					<span id="rss-label" class="property-label">RSS Feed</span>
+					<span class="property-value" aria-labelledby="rss-label">
+						<link rel="alternate" type="application/rss+xml" title="RCade Scores" href="http://localhost:8080/RcadeServer/player/RSS?id=1"/>
+						<a href="http://localhost:8080/RcadeServer/player/RSS?id=1">Active</a>
+					</span>
+				</li>
 			
 				<g:if test="${!gameInstance?.scores}">
 					<li class="fieldcontain">
