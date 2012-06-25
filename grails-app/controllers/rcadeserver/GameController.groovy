@@ -61,13 +61,15 @@ class GameController {
 		def theGame = Game.findById(theID)
 		def latestScores = Score.findAllByGame(theGame)
 		render(feedType:"rss", feedVersion:"2.0"){
-			title = "Latest Scores For: " + theGame.gameName
+			title = "top-scoring players of " + theGame.gameName
 			link = "dummy.com"
-			description = "Latest scores posted for " + theGame.gameName
+			description = "High scores set in " + theGame.gameName
 			
-			latestScores.each(){
-				entry(it.player.name){
-					
+			latestScores.each(){ score ->
+				entry{
+					title = score.player.name + ": " + score.score
+					link = "http://localhost:8080/RcadeServer/score/show/${score.id}"
+					publishedDate = score.dateCreated
 				}
 			}
 		}
