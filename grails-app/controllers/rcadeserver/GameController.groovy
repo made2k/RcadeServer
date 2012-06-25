@@ -118,8 +118,15 @@ class GameController {
 				break
 
 			case "GET":
-				if(params.romName){render Game.findByRomName(params.romName) as XML}
-				else{render Game.list() as XML}
+				if(params.romName){
+					// Put the proper id in params, then redirect to the single-item XML
+					def g = Game.findByRomName(params.romName)
+					params.id = g == null ? null : g.id
+					redirect(action: "xmlShow", params: params)
+				}
+				else{
+					redirect(action: "xmlList")
+				}
 				break
 
 			case "PUT":
