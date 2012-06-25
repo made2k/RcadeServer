@@ -11,6 +11,7 @@ class UrlMappings {
 		"/game"(controller:"game", action:"list")
 		"/player"(controller:"player", action:"list")
 		"/score"(controller:"score", action:"list")
+		"/game/post"(controller:"game", action:"yammer")
 		
 		"/rest/game/$romName?"(controller:"game", action:"index")
 		"/rest/player/$name?"(controller:"player", action:"index")	//Need to change with RFID
