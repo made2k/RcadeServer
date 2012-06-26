@@ -86,7 +86,9 @@ p {
 			<g:each var="c"
 				in="${grailsApplication.controllerClasses.sort { it.fullName } }">
 				<g:if test="${c.name != 'Score' && c.name != 'User'}">
-					<li class="controller"><g:link controller="${c.name}" action="list">${c.name}s</g:link></li>
+					<li class="controller"><g:link controller="${c.name}"
+							action="list">
+							${c.name}s</g:link></li>
 				</g:if>
 			</g:each>
 		</ul>

@@ -28,8 +28,7 @@
 <body>
 	<div id="RcadeLogo" role="banner">
 		<a href="http://www.readytalk.com/"><img
-			src="${resource(dir: 'images', file: 'Rcade-Server.svg')}"
-			width=30%
+			src="${resource(dir: 'images', file: 'Rcade-Server.svg')}" width=30%
 			alt="Rcade" /></a>
 	</div>
 	<g:layoutBody />
