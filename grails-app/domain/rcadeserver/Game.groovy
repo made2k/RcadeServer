@@ -48,10 +48,6 @@ class Game{
 		formattedHighScores
 	}
 
-	def mc = [
-		compare: {a,b-> a.equals(b)? 0: Math.abs(a)<Math.abs(b)? -1: 1 }
-	] as Comparator
-
 
 	String toString() {
 		"${gameName}"
