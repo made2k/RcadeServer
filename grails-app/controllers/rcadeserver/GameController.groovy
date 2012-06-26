@@ -131,6 +131,7 @@ class GameController {
 					def g = Game.findByRomName(params.romName)
 					params.id = g == null ? null : g.id
 					redirect(action: "xmlShow", params: params)
+					response.status = 200 //Okay
 				}
 				else{
 					redirect(action: "xmlList")
@@ -140,7 +141,6 @@ class GameController {
 			case "PUT":
 				def game = Game.findByRomName(params.romName)
 				game.properties = params.game
-				render game.properties
 				if(game.save()) {
 					response.status = 200 //Okay
 					render game as XML
@@ -156,6 +156,7 @@ class GameController {
 					if(game){
 						game.delete()
 						render "Successfully Deleted."
+						response.status = 200 //Okay
 					}else{
 						response.status = 404 //Not Found
 						render "${params.romName} not found."
