@@ -18,7 +18,7 @@ class Game{
 			score.max{it.score}
 		}
 	}
-	
+
 	Score getHighScore() {
 		if(scores.empty)
 			"No High Score"
@@ -30,15 +30,20 @@ class Game{
 
 	String highScore(int count) {
 		String formattedHighScores = ""
-		List<Score> highScores = []
+		List<Score> highScores = []	//Array for the day's high scores to be stored in
 		List<Score> allScores = scores.asList()
-		for(int i = 0; i < count; i++){
+		for(int i = 0; i < count;){	//Display the number of scores desired
 			if(allScores.empty) {
 				break
 			} else {
 				Score topScore = allScores.max{it.score}
-				highScores.add(topScore)
-				//allScores.minus(topScore)
+				Date today = new Date()
+				
+				if(today.minus(topScore.dateCreated) <= 1){
+					highScores.add(topScore)
+					i++
+				}
+				
 				allScores.remove(topScore)
 			}
 		}

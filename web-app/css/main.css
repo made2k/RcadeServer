@@ -589,3 +589,12 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+#loginHeader { 
+  float: right; 
+  color: #fff; 
+}
+
+#loginHeader a{ 
+  color: #fff; 
+} 

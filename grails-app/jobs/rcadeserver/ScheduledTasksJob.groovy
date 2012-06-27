@@ -53,7 +53,7 @@ class ScheduledTasksJob {
 		String currentDir = new File(".").getAbsolutePath()
 		currentDir = currentDir.substring(0, currentDir.length()-1)
 		def cmd = ['python', currentDir + "/SupportScripts/PostToYammer.py", popularGames]
-		cmd.execute()
+		//cmd.execute()
 	}
 
 }
