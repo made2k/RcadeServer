@@ -42,7 +42,7 @@ class GameController {
 		num--
 		List<String> popNames = tops.keySet().toArray()[0 .. Math.max(num,0)]
 		List<Game> popGames = []
-		for ( g in popNames) {
+		for (g in popNames) {
 			popGames.add(g)
 		}
 		if (params.boolean('renderXML')){

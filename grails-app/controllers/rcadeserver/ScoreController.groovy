@@ -1,5 +1,7 @@
 package rcadeserver
 
+import java.util.List;
+
 import grails.converters.XML
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -171,5 +173,10 @@ class ScoreController {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'score.label', default: 'Score'), params.id])
 			redirect(action: "show", id: params.id)
 		}
+	}
+	
+	def latest() {
+		render(view: "latest")
+		return
 	}
 }

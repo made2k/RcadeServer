@@ -1,6 +1,8 @@
 package rcadeserver
 import java.util.Date;
-class Score {
+import java.util.List;
+
+class Score {	
     static constraints = {
 		player()
 		score(matches:"[0-9]+")
@@ -31,4 +33,9 @@ class Score {
 		return this.score
 	}
 	
+	static List<Score> getLatest() {
+		List<Score> allScores = Score.getAll()
+		allScores.sort{a, b -> b.dateCreated <=> a.dateCreated}
+		return allScores.subList(0, 5)
+	}
 }
