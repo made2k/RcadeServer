@@ -3,7 +3,7 @@ import java.util.Date;
 class Score {
     static constraints = {
 		player()
-		score()
+		score(matches:"[0-9]+")
 		game()
 		cabinetID()
 		dateCreated()

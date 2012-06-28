@@ -80,16 +80,26 @@ p {
 	<a href="#page-body" class="skip"><g:message
 			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 
+
+
 	<div id="controller-list" role="navigation">
 		<h1>View:</h1>
 		<ul>
 			<g:each var="c"
 				in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-				<g:if test="${c.name != 'Score' && c.name != 'User'}">
+
+				<g:if test="${!session?.user?.isAdmin() }"> <!-- If user not admin, don't show special classes -->
+					<g:if test="${c.name == 'Game' || c.name == 'Player'}">
+						<li class="controller"><g:link controller="${c.name}"
+								action="list">
+								${c.name}s</g:link></li>
+					</g:if>
+				</g:if>
+				<g:else> <!-- If user is admin, show all classes -->
 					<li class="controller"><g:link controller="${c.name}"
 							action="list">
 							${c.name}s</g:link></li>
-				</g:if>
+				</g:else>
 			</g:each>
 		</ul>
 	</div>

@@ -10,6 +10,7 @@ class GameController {
 	//    def index() {
 	//        redirect(action: "list", params: params)
 	//    }
+	
 
 	def xmlList = {
 		render Game.list() as XML
