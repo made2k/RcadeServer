@@ -10,6 +10,7 @@ class GameController {
 	//    def index() {
 	//        redirect(action: "list", params: params)
 	//    }
+	
 
 	def xmlList = {
 		render Game.list() as XML
@@ -41,7 +42,7 @@ class GameController {
 		num--
 		List<String> popNames = tops.keySet().toArray()[0 .. Math.max(num,0)]
 		List<Game> popGames = []
-		for ( g in popNames) {
+		for (g in popNames) {
 			popGames.add(g)
 		}
 		//popGames = popGames.sort{ a,b -> a.gameName <=> b.gameName}

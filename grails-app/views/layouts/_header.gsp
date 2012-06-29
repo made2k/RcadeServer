@@ -19,11 +19,7 @@
 			alt="Rcade" /></a>
 	</div>
 
-	<g:if test="${flash.message}">
-		<div class="message">
-			${flash.message}
-		</div>
-	</g:if>
+
 
 	<div class="body"></div>
 </body>

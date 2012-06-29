@@ -26,7 +26,7 @@
 <r:layoutResources />
 </head>
 <body>
-<g:render template="/layouts/header" /> 
+	<g:render template="/layouts/header" />
 
 	
 	<g:layoutBody />

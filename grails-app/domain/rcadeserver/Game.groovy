@@ -9,6 +9,7 @@ class Game{
 	static hasMany = [scores:Score]
 	String romName
 	String gameName
+	
 
 	String getHighScoreString() {
 		if(scores.empty)
