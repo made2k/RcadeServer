@@ -92,7 +92,7 @@ function refresh()
 
 function startTimer()
 {
-	timerVar = setInterval(function(){refresh()}, 10000);
+	timerVar = setInterval(function(){refresh()}, 5000);
 	document.getElementById("startButton").disabled = true;
 	document.getElementById("stopButton").disabled = false;
 }
@@ -236,7 +236,7 @@ p {
 	
 	<div id="latest-scores" role="main">
 		<hr>
-		<iframe id="latest-iframe" src="score/latest" frameborder="0"></iframe> 
+		<iframe id="latest-iframe" src="score/latest" scrolling="no" frameborder="0"></iframe> 
 	</div>
 </body>
 </html>
