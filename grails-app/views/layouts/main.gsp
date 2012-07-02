@@ -26,12 +26,9 @@
 <r:layoutResources />
 </head>
 <body>
-	<div id="RcadeLogo" role="banner">
-		<a href="http://www.readytalk.com/"><img
-			src="${resource(dir: 'images', file: 'Rcade-server-circa-svg-big.png')}"
-			width=30%
-			alt="Rcade" /></a>
-	</div>
+	<g:render template="/layouts/header" />
+
+	
 	<g:layoutBody />
 	<div class="footer" role="contentinfo"></div>
 	<div id="spinner" class="spinner" style="display: none;">

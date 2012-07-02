@@ -8,7 +8,7 @@ class Player {
 
 	static hasMany = [scores:Score]
 
-	BigInteger playerID
+	String playerID
 	String name
 
 	String recentScore(){

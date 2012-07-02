@@ -10,6 +10,7 @@ class GameController {
 	//    def index() {
 	//        redirect(action: "list", params: params)
 	//    }
+	
 
 	def xmlList = {
 		render Game.list() as XML
@@ -22,7 +23,7 @@ class GameController {
 	def popular = {
 		//Get count param as integer
 		def num = params.int('count')
-		num = ( num == null ? 1 : num )
+		num = ( num == null ? 10 : num )
 		def allScores = Score.getAll()
 		//Empty map
 		def counts = [:]
@@ -41,9 +42,10 @@ class GameController {
 		num--
 		List<String> popNames = tops.keySet().toArray()[0 .. Math.max(num,0)]
 		List<Game> popGames = []
-		for ( g in popNames) {
+		for (g in popNames) {
 			popGames.add(g)
 		}
+		//popGames = popGames.sort{ a,b -> a.gameName <=> b.gameName}
 		if (params.boolean('renderXML')){
 			render popGames as XML
 		}
@@ -59,12 +61,31 @@ class GameController {
 		// http://grails.org/plugin/feeds
 		def theID = params.int('id')
 		def theGame = Game.findById(theID)
+		if (theGame == null)
+			render ""
+			return
 		def latestScores = Score.findAllByGame(theGame)
 		render(feedType:"rss", feedVersion:"2.0"){
-			title = "Latest Scores For: " + theGame.gameName
+			title = "top-scoring players of " + theGame.gameName
 			link = "dummy.com"
-			description = "Latest scores posted for " + theGame.gameName
+			description = "High scores set in " + theGame.gameName
+			
+			latestScores.each(){ score ->
+				entry{
+					title = score.player.name + ": " + score.score
+					link = "http://localhost:8080/RcadeServer/score/show/${score.id}"
+					publishedDate = score.dateCreated
+				}
+			}
 		}
+	}
+
+	def yammer = {
+		String currentDir = new File(".").getAbsolutePath()
+		currentDir = currentDir.substring(0, currentDir.length()-1)
+		def cmd = ['python', currentDir + "/SupportScripts/PostToYammer.py", 'this is a test from grails!']
+		cmd.execute()
+		redirect(action: "list")
 	}
 
 	def customXmlList = {
@@ -110,14 +131,21 @@ class GameController {
 				break
 
 			case "GET":
-				if(params.romName){render Game.findByRomName(params.romName) as XML}
-				else{render Game.list() as XML}
+				if(params.romName){
+					// Put the proper id in params, then redirect to the single-item XML
+					def g = Game.findByRomName(params.romName)
+					params.id = g == null ? null : g.id
+					redirect(action: "xmlShow", params: params)
+					response.status = 200 //Okay
+				}
+				else{
+					redirect(action: "xmlList")
+				}
 				break
 
 			case "PUT":
 				def game = Game.findByRomName(params.romName)
 				game.properties = params.game
-				render game.properties
 				if(game.save()) {
 					response.status = 200 //Okay
 					render game as XML
@@ -133,6 +161,7 @@ class GameController {
 					if(game){
 						game.delete()
 						render "Successfully Deleted."
+						response.status = 200 //Okay
 					}else{
 						response.status = 404 //Not Found
 						render "${params.romName} not found."
