@@ -7,7 +7,7 @@
 	<label for="playerID"> <g:message code="player.playerID.label"
 			default="Player ID" /> <span class="required-indicator">*</span>
 	</label>
-	<g:field type="number" name="playerID" required=""
+	<g:field name="playerID" required=""
 		value="${fieldValue(bean: playerInstance, field: 'playerID')}" />
 </div>
 

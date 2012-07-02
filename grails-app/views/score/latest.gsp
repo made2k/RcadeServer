@@ -27,11 +27,11 @@
 						title="${message(code: 'score.score.label', default: 'Score')}" />
 					<th><g:message code="score.game.label" default="Game" /></th>
 					<g:sortableColumn property="cabinetID"
-						title="${message(code: 'score.cabinetID.label', default: 'Cabinet ID')}" />
+						title="${message(code: 'score.cabinetID.label', default: 'Cabinet Name')}" />
 					<g:sortableColumn property="dateCreated"
-						title="${message(code: 'score.dateCreated.label', default: 'Date Created')}" />
+						title="${message(code: 'score.dateCreated.label', default: 'Date Played')}" />
 					<g:sortableColumn property="arcadeName"
-						title="${message(code: 'score.arcadeName.label', default: 'Arcade Name')}" />
+						title="${message(code: 'score.arcadeName.label', default: 'Initials')}" />
 				</tr>
 			</thead>
 			<tbody>
