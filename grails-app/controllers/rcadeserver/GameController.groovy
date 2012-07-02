@@ -23,7 +23,7 @@ class GameController {
 	def popular = {
 		//Get count param as integer
 		def num = params.int('count')
-		num = ( num == null ? 1 : num )
+		num = ( num == null ? 10 : num )
 		def allScores = Score.getAll()
 		//Empty map
 		def counts = [:]
@@ -45,6 +45,7 @@ class GameController {
 		for (g in popNames) {
 			popGames.add(g)
 		}
+		//popGames = popGames.sort{ a,b -> a.gameName <=> b.gameName}
 		if (params.boolean('renderXML')){
 			render popGames as XML
 		}
@@ -60,6 +61,9 @@ class GameController {
 		// http://grails.org/plugin/feeds
 		def theID = params.int('id')
 		def theGame = Game.findById(theID)
+		if (theGame == null)
+			render ""
+			return
 		def latestScores = Score.findAllByGame(theGame)
 		render(feedType:"rss", feedVersion:"2.0"){
 			title = "top-scoring players of " + theGame.gameName

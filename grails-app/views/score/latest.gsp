@@ -22,16 +22,12 @@
 		<table>
 			<thead>
 				<tr>
-					<th><g:message code="score.player.label" default="Player" /></th>
-					<g:sortableColumn property="score"
-						title="${message(code: 'score.score.label', default: 'Score')}" />
-					<th><g:message code="score.game.label" default="Game" /></th>
-					<g:sortableColumn property="cabinetID"
-						title="${message(code: 'score.cabinetID.label', default: 'Cabinet Name')}" />
-					<g:sortableColumn property="dateCreated"
-						title="${message(code: 'score.dateCreated.label', default: 'Date Played')}" />
-					<g:sortableColumn property="arcadeName"
-						title="${message(code: 'score.arcadeName.label', default: 'Initials')}" />
+					<th>Player</th>
+					<th>Score</th>
+					<th>Game</th>
+					<th>Cabined ID</th>
+					<th>Date</th>
+					<th>Arcade Name</th>
 				</tr>
 			</thead>
 			<tbody>

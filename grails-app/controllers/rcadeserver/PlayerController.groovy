@@ -81,6 +81,9 @@ class PlayerController {
 		// http://grails.org/plugin/feeds
 		def theID = params.int('id')
 		def thePlayer = Player.findById(theID)
+		if (thePlayer == null)
+			render ""
+			return
 		def latestScores = Score.findAllByPlayer(thePlayer)
 		render(feedType:"rss", feedVersion:"2.0"){
 			title = "scores set by " + thePlayer.name
