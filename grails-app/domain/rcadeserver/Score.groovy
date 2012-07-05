@@ -4,9 +4,9 @@ import java.util.List;
 
 class Score {	
     static constraints = {
-		player()
+		player(blank:false)
 		score(matches:"[0-9]+")
-		game()
+		game(blank:false)
 		cabinetID()
 		dateCreated()
 	}

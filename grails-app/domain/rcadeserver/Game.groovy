@@ -3,7 +3,7 @@ package rcadeserver
 class Game{
 	static constraints = {
 		romName(blank:false, unique:true)
-		gameName(blank:true)
+		gameName(blank:false)
 	}
 
 	static hasMany = [scores:Score]

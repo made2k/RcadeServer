@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
 <head>
-
 <script type="text/javascript">
 
 function resize()
@@ -208,7 +207,7 @@ p {
 				in="${grailsApplication.controllerClasses.sort { it.fullName } }">
 
 				<g:if test="${!session?.user?.isAdmin() }"> <!-- If user not admin, don't show special classes -->
-					<g:if test="${c.name == 'Game' || c.name == 'Player'}">
+					<g:if test="${c.name == 'Game' || c.name == 'Player' || c.name =='Score'}">
 						<li class="controller"><g:link controller="${c.name}"
 								action="list">
 								${c.name}s</g:link></li>

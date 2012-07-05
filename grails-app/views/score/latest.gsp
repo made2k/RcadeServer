@@ -3,6 +3,11 @@
 <!doctype html>
 <html>
 <head>
+<style>
+#latest th {
+	background: "black"
+}
+</style>
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'latest.css')}"
 	type="text/css">
 <g:set var="entityName"
@@ -22,12 +27,12 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Player</th>
-					<th>Score</th>
-					<th>Game</th>
-					<th>Cabined ID</th>
-					<th>Date</th>
-					<th>Arcade Name</th>
+					<th id="latest">Player</th>
+					<th id="latest">Score</th>
+					<th id="latest">Game</th>
+					<th id="latest">Cabined ID</th>
+					<th id="latest">Date</th>
+					<th id="latest">Arcade Name</th>
 				</tr>
 			</thead>
 			<tbody>
