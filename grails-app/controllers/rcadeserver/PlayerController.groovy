@@ -25,14 +25,12 @@ class PlayerController {
 			case "POST":
 				render "Create\n"
 				def player = new Player(params.player)
-				println params.player
 				if(player.save()){
 					response.status = 201 // Created
 					render player as XML
 				}
 				else{
 					response.status = 500 //Internal Server Error
-					println player.errors
 					render "Could not create new Player due to errors:\n ${player.errors}"
 				}
 				break
@@ -51,7 +49,6 @@ class PlayerController {
 					render player as XML
 				} else {
 					response.status = 500 //Internal server error
-					println player.errors
 					render "Could not create new Player due to errors:\n ${player.errors}"
 				}
 				break
