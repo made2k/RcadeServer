@@ -25,6 +25,15 @@ class GameController {
 		def num = params.int('count')
 		num = ( num == null ? 10 : num )
 		def allScores = Score.getAll()
+		if (allScores.size() == 0) {
+			if (params.boolean('renderXML')){
+				render ""
+			}
+			else{
+				render(view:"list", model:[gameInstanceList:popGames, gameInstanceTotal:popGames.size()])
+			}
+			return		
+		}
 		//Empty map
 		def counts = [:]
 		//Tally occurrences of games in the score listings
