@@ -8,7 +8,9 @@ class AdminFilters {
 			before = {
 				if(!session?.user?.admin){
 					flash.message = "Sorry, admin only"
-					redirect(uri:"/")
+					String targetURL = (request.forwardURI - request.contextPath)
+					targetURL = targetURL.substring(0, targetURL.lastIndexOf('/'))
+					redirect(uri:targetURL)
 					return false
 				}
 			}

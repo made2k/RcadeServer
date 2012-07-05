@@ -25,7 +25,7 @@
 					<th>Player</th>
 					<th>Score</th>
 					<th>Game</th>
-					<th>Cabined ID</th>
+					<th>Cabined Name</th>
 					<th>Date</th>
 					<th>Arcade Name</th>
 				</tr>
