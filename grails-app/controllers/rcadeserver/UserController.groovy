@@ -13,7 +13,7 @@ class UserController {
 	
 	def login = {}
 	def logout = {
-		flash.message = "Goodbye ${session.user.login}"
+		flash.message = "Goodbye, ${session.user.login}."
 		session.user = null
 		redirect(action:'login')
 		}
@@ -22,7 +22,7 @@ class UserController {
 				User.findByLoginAndPassword(params.login, params.password.encodeAsSHA())
 		if(user){
 			session.user = user
-			flash.message = "Hello ${user.login}!"
+			flash.message = "Hello, ${user.login}!"
 			redirect(uri: '/')
 		}else{
 			flash.message =

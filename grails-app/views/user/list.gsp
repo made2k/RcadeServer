@@ -36,9 +36,6 @@
 					<g:sortableColumn property="login"
 						title="${message(code: 'user.login.label', default: 'Login')}" />
 
-					<g:sortableColumn property="password"
-						title="${message(code: 'user.password.label', default: 'Password')}" />
-
 					<g:sortableColumn property="role"
 						title="${message(code: 'user.role.label', default: 'Role')}" />
 
@@ -53,10 +50,6 @@
 							</g:link></td>
 
 						<td>
-							${fieldValue(bean: userInstance, field: "password")}
-						</td>
-
-						<td>
 							${fieldValue(bean: userInstance, field: "role")}
 						</td>
 
@@ -65,7 +58,12 @@
 			</tbody>
 		</table>
 		<div class="pagination">
-			<g:paginate total="${userInstanceTotal}" />
+			<g:if test="${userInstanceTotal <= params.max}">
+    			<span class="currentStep">1</span>
+    		</g:if>
+    		<g:else>
+				<g:paginate total="${userInstanceTotal}" />
+			</g:else>
 		</div>
 	</div>
 </body>
