@@ -219,14 +219,6 @@ th a {
 	text-decoration: none;
 }
 
-th a:link, th a:visited {
-	color: #666666;
-}
-
-th a:hover, th a:focus {
-	color: #333333;
-}
-
 th.sortable a {
 	background-position: right;
 	background-repeat: no-repeat;
@@ -248,8 +240,3 @@ th.desc a {
 .even {
 	background: #ffffff;
 }
-
-th:hover, tr:hover {
-	background: #E1F2B6;
-}
-
