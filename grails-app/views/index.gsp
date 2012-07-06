@@ -85,7 +85,7 @@
 	function startTimer() {
 		timerVar = setInterval(function() {
 			refresh()
-		}, 5000);
+		}, 8000);
 		document.getElementById("startButton").disabled = true;
 		document.getElementById("stopButton").disabled = false;
 	}
@@ -95,6 +95,8 @@
 		document.getElementById("startButton").disabled = false;
 		document.getElementById("stopButton").disabled = true;
 	}
+	
+	startTimer()
 </script>
 
 <meta name="layout" content="main" />
@@ -231,12 +233,13 @@ p {
 			like Galaga and Airwolf and compete with your friends across
 			different machines. Battle it out for the high score!</p>
 	</div>
+	<!--
 	<span>Temporary:</span>
 	<button id="startButton" onclick="startTimer()">Start iframe
 		refresh timer</button>
 	<button id="stopButton" onclick="stopTimer()" disabled="true">Stop iframe
 		refresh timer</button>
-
+	-->
 	<div id="latest-scores" role="main">
 		<hr>
 		<iframe id="latest-iframe" src="score/latest" scrolling="no"
