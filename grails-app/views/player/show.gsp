@@ -18,9 +18,11 @@
 			<li><g:link class="list" action="list">
 					<g:message code="default.list.label" args="[entityName]" />
 				</g:link></li>
-			<li><g:link class="create" action="create">
-					<g:message code="default.new.label" args="[entityName]" />
-				</g:link></li>
+			<g:if test="${session?.user?.isAdmin() }">
+				<li><g:link class="create" action="create">
+						<g:message code="default.new.label" args="[entityName]" />
+					</g:link></li>
+			</g:if>
 		</ul>
 	</div>
 	<div id="show-player" class="content scaffold-show" role="main">
