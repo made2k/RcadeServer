@@ -70,9 +70,10 @@ class GameController {
 		// http://grails.org/plugin/feeds
 		def theID = params.int('id')
 		def theGame = Game.findById(theID)
-		if (theGame == null)
+		if (theGame == null){
 			render ""
 			return
+		}
 		def latestScores = Score.findAllByGame(theGame)
 		render(feedType:"rss", feedVersion:"2.0"){
 			title = "top-scoring players of " + theGame.gameName
