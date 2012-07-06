@@ -42,14 +42,6 @@
 							bean="${userInstance}" field="login" /></span></li>
 			</g:if>
 
-			<g:if test="${userInstance?.password}">
-				<li class="fieldcontain"><span id="password-label"
-					class="property-label"><g:message code="user.password.label"
-							default="Password" /></span> <span class="property-value"
-					aria-labelledby="password-label"><g:fieldValue
-							bean="${userInstance}" field="password" /></span></li>
-			</g:if>
-
 			<g:if test="${userInstance?.role}">
 				<li class="fieldcontain"><span id="role-label"
 					class="property-label"><g:message code="user.role.label"

@@ -18,9 +18,11 @@
 			<li><g:link class="list" action="list">
 					<g:message code="default.list.label" args="[entityName]" />
 				</g:link></li>
-			<li><g:link class="create" action="create">
-					<g:message code="default.new.label" args="[entityName]" />
-				</g:link></li>
+			<g:if test="${session?.user?.isAdmin() }">
+				<li><g:link class="create" action="create">
+						<g:message code="default.new.label" args="[entityName]" />
+					</g:link></li>
+			</g:if>
 		</ul>
 	</div>
 	<div id="show-game" class="content scaffold-show" role="main">
@@ -32,19 +34,7 @@
 				${flash.message}
 			</div>
 		</g:if>
-		<ol class="property-list game">
-
-			<!-- 			
-				<g:if test="${gameInstance?.romName}">
-				<li class="fieldcontain">
-					<span id="romName-label" class="property-label"><g:message code="game.romName.label" default="Rom Name" /></span>
-					
-						<span class="property-value" aria-labelledby="romName-label"><g:fieldValue bean="${gameInstance}" field="romName"/></span>
-					
-				</li>
-				</g:if>
- -->
-
+		<ol class="property-list game">	
 			<g:if test="${gameInstance?.gameName}">
 				<li class="fieldcontain"><span id="gameName-label"
 					class="property-label"><g:message code="game.gameName.label"
@@ -52,7 +42,19 @@
 					aria-labelledby="gameName-label"><g:fieldValue
 							bean="${gameInstance}" field="gameName" /></span></li>
 			</g:if>
-
+			
+			<g:if test="${gameInstance?.romName}">
+				<li class="fieldcontain">
+					<span id="romName-label" class="property-label">
+						<g:message code="game.romName.label" default="Rom Name" />
+					</span>
+					<span class="property-value" aria-labelledby="romName-label">
+						<g:fieldValue bean="${gameInstance}" field="romName"/>
+					</span>
+					
+				</li>
+			</g:if>
+			
 			<li class="fieldcontain"><span id="rss-label"
 				class="property-label">RSS Feed</span> <span class="property-value"
 				aria-labelledby="rss-label">
@@ -86,17 +88,19 @@
 			</g:if>
 
 		</ol>
-		<g:form>
-			<fieldset class="buttons">
-				<g:hiddenField name="id" value="${gameInstance?.id}" />
-				<g:link class="edit" action="edit" id="${gameInstance?.id}">
-					<g:message code="default.button.edit.label" default="Edit" />
-				</g:link>
-				<g:actionSubmit class="delete" action="delete"
-					value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-					onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-			</fieldset>
-		</g:form>
+		<g:if test="${session?.user?.isAdmin() }">
+			<g:form>
+				<fieldset class="buttons">
+					<g:hiddenField name="id" value="${gameInstance?.id}" />
+					<g:link class="edit" action="edit" id="${gameInstance?.id}">
+						<g:message code="default.button.edit.label" default="Edit" />
+					</g:link>
+					<g:actionSubmit class="delete" action="delete"
+						value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+						onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+				</fieldset>
+			</g:form>
+		</g:if>
 	</div>
 </body>
 </html>

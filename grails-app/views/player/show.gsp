@@ -18,9 +18,11 @@
 			<li><g:link class="list" action="list">
 					<g:message code="default.list.label" args="[entityName]" />
 				</g:link></li>
-			<li><g:link class="create" action="create">
-					<g:message code="default.new.label" args="[entityName]" />
-				</g:link></li>
+			<g:if test="${session?.user?.isAdmin() }">
+				<li><g:link class="create" action="create">
+						<g:message code="default.new.label" args="[entityName]" />
+					</g:link></li>
+			</g:if>
 		</ul>
 	</div>
 	<div id="show-player" class="content scaffold-show" role="main">
@@ -45,29 +47,44 @@
 -->
 
 			<g:if test="${playerInstance?.name}">
-				<li class="fieldcontain"><span id="name-label"
-					class="property-label"><g:message code="player.name.label"
-							default="Name" /></span> <span class="property-value"
-					aria-labelledby="name-label"><g:fieldValue
-							bean="${playerInstance}" field="name" /></span></li>
+				<li class="fieldcontain">
+					<span id="name-label" class="property-label">
+						<g:message code="player.name.label" default="Name" />
+					</span>
+					<span class="property-value" aria-labelledby="name-label">
+						<g:fieldValue bean="${playerInstance}" field="name" />
+					</span>
+				</li>
 			</g:if>
-
+			
 			<g:if test="${playerInstance?.scores}">
-				<li class="fieldcontain"><span id="scores-label"
-					class="property-label"><g:message code="player.scores.label"
-							default="Recent Scores" /></span> <g:each
-						in="${playerInstance.scores.sort{a,b-> (a.dateCreated>b.dateCreated ? -1 : 1)}}"
-						var="s" status="i">
+				<li class="fieldcontain">
+					<span id="scores-label" class="property-label">
+						<g:message code="player.scores.label" default="Recent Scores" />
+					</span>
+					<g:each in="${playerInstance.scores.sort{a,b-> (a.dateCreated>b.dateCreated ? -1 : 1)}}" var="s" status="i">
 						<g:if test="${ i<10 }">
-							<span class="property-value" aria-labelledby="scores-label"><g:link
-									controller="score" action="show" id="${s.id}">
+							<span class="property-value" aria-labelledby="scores-label">
+								<g:link controller="score" action="show" id="${s.id}">
 									${s?.toStringWithGame().encodeAsHTML()}
-								</g:link></span>
+								</g:link>
+							</span>
 						</g:if>
-					</g:each></li>
+					</g:each>
+				</li>
 			</g:if>
-
+			<g:else>
+				<li class="fieldcontain">
+					<span id="scores-label" class="property-label">
+						<g:message code="player.scores.label" default="Recent Scores" />
+					</span>
+					<span class="property-value" aria-labelledby="scores-label">
+						<g:message code="player.scores.label" default="None" />
+					</span>
+				</li>
+			</g:else>
 		</ol>
+		<g:if test="${session?.user?.isAdmin() }">
 		<g:form>
 			<fieldset class="buttons">
 				<g:hiddenField name="id" value="${playerInstance?.id}" />
@@ -79,6 +96,7 @@
 					onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 			</fieldset>
 		</g:form>
+		</g:if>
 	</div>
 </body>
 </html>

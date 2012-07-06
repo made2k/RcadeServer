@@ -18,9 +18,11 @@
 			<li><g:link class="list" action="list">
 					<g:message code="default.list.label" args="[entityName]" />
 				</g:link></li>
-			<li><g:link class="create" action="create">
-					<g:message code="default.new.label" args="[entityName]" />
-				</g:link></li>
+			<g:if test="${session?.user?.isAdmin() }">
+				<li><g:link class="create" action="create">
+						<g:message code="default.new.label" args="[entityName]" />
+					</g:link></li>
+			</g:if>
 		</ul>
 	</div>
 	<div id="show-score" class="content scaffold-show" role="main">
@@ -87,6 +89,7 @@
 			</g:if>
 
 		</ol>
+		<g:if test="${session?.user?.isAdmin() }">
 		<g:form>
 			<fieldset class="buttons">
 				<g:hiddenField name="id" value="${scoreInstance?.id}" />
@@ -98,6 +101,7 @@
 					onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 			</fieldset>
 		</g:form>
+		</g:if>
 	</div>
 </body>
 </html>

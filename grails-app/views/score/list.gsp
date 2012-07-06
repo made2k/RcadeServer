@@ -84,7 +84,12 @@
 			</tbody>
 		</table>
 		<div class="pagination">
-			<g:paginate total="${scoreInstanceTotal}" />
+			<g:if test="${scoreInstanceTotal <= params.max}">
+    			<span class="currentStep">1</span>
+    		</g:if>
+    		<g:else>
+				<g:paginate total="${scoreInstanceTotal}" />
+			</g:else>
 		</div>
 	</div>
 </body>
