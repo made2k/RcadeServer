@@ -35,12 +35,17 @@
 			<thead>
 				<tr>
 
-					<th><g:message code="score.player.label" default="Player" /></th>
+					
+					
+					<g:sortableColumn property="player"
+					title="${message(code: 'player.name.label', default: 'Player') }" />
 
 					<g:sortableColumn property="score"
 						title="${message(code: 'score.score.label', default: 'Score')}" />
 
-					<th><g:message code="score.game.label" default="Game" /></th>
+					
+					<g:sortableColumn property="game"
+					title="${message(code: 'score.game.label', default: 'Game') }" />
 
 					<g:sortableColumn property="cabinetID"
 						title="${message(code: 'score.cabinetID.label', default: 'Cabinet Name')}" />

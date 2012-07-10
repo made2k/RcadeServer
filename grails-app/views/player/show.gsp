@@ -35,16 +35,17 @@
 			</div>
 		</g:if>
 		<ol class="property-list player">
-			<!--
+
+			<g:if test="${session?.user?.isAdmin() }">
 				<g:if test="${playerInstance?.playerID}">
-				<li class="fieldcontain">
-					<span id="playerID-label" class="property-label"><g:message code="player.playerID.label" default="Player ID" /></span>
-					
-						<span class="property-value" aria-labelledby="playerID-label"><g:fieldValue bean="${playerInstance}" field="playerID"/></span>
-					
-				</li>
+					<li class="fieldcontain"><span id="playerID-label"
+						class="property-label"><g:message
+								code="player.playerID.label" default="Player ID" /></span> <span
+						class="property-value" aria-labelledby="playerID-label"><g:fieldValue
+								bean="${playerInstance}" field="playerID" /></span></li>
 				</g:if>
--->
+			</g:if>
+
 
 			<g:if test="${playerInstance?.name}">
 				<li class="fieldcontain"><span id="name-label"

@@ -84,8 +84,8 @@ class ScoreController {
 
 	def list() {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		params.sort = "dateCreated"
-		params.order = "desc"
+//		params.sort = "dateCreated"
+//		params.order = "desc"
 		[scoreInstanceList: Score.list(params), scoreInstanceTotal: Score.count()]
 	}
 
