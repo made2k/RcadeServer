@@ -89,6 +89,7 @@
 			</g:if>
 
 		</ol>
+		<g:if test="${session?.user?.isAdmin() }">
 		<g:form>
 			<fieldset class="buttons">
 				<g:hiddenField name="id" value="${scoreInstance?.id}" />
@@ -100,6 +101,7 @@
 					onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 			</fieldset>
 		</g:form>
+		</g:if>
 	</div>
 </body>
 </html>

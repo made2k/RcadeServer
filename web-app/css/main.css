@@ -44,9 +44,9 @@ body {
 	max-width: 960px;
 	overflow-x: hidden;
 	/* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
-	-moz-box-shadow: 0 0 0.3em #5B5B5B;
+	   -moz-box-shadow: 0 0 0.3em #5B5B5B;
 	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
-	box-shadow: 0 0 0.3em #5B5B5B;
+	        box-shadow: 0 0 0.3em #5B5B5B;
 }
 
 #RcadeLogo {
@@ -77,7 +77,6 @@ h1 {
 	color: #73C167;
 	font-weight: bold;
 	font-size: 1.5em;
-	margin: 0.8em 0 0.3em 0;
 }
 
 ul {
@@ -225,7 +224,7 @@ fieldset,.property-list {
 .fieldcontain label,.fieldcontain .property-label {
 	color: #666666;
 	text-align: right;
-	width: 25%;
+	width: 45%;
 }
 
 .fieldcontain .property-label {
@@ -234,7 +233,7 @@ fieldset,.property-list {
 
 .fieldcontain .property-value {
 	display: block;
-	margin-left: 27%;
+	margin-left: 47%;
 }
 
 label {
@@ -583,9 +582,10 @@ a.skip {
 #loginHeader {
 	clear: both;
 	float: right;
-	color: #fff;
+	color: #55bf43;
+	padding: 0.1em 0.5em 0 0;
 }
 
 #loginHeader a {
-	color: #fff;
+	color: #55bf43;
 }

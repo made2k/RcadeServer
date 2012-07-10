@@ -63,7 +63,12 @@
 			</tbody>
 		</table>
 		<div class="pagination">
-			<g:paginate total="${playerInstanceTotal}" />
+    		<g:if test="${playerInstanceTotal <= params.max}">
+    			<span class="currentStep">1</span>
+    		</g:if>
+    		<g:else>
+				<g:paginate total="${playerInstanceTotal}" />
+			</g:else>
 		</div>
 	</div>
 </body>

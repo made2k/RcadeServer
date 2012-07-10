@@ -18,7 +18,6 @@
 
 		var getFFVersion = navigator.userAgent.substring(
 				navigator.userAgent.indexOf("Firefox")).split("/")[1]
-		var FFextraHeight = parseFloat(getFFVersion) >= 0.1 ? 31 : 0 //extra height in px to add to iframe in FireFox 1.0+ browsers
 
 		function resizeCaller() {
 			var dyniframe = new Array()
@@ -42,7 +41,6 @@
 				if (currentfr.contentDocument
 						&& currentfr.contentDocument.body.offsetHeight) //ns6 syntax
 					currentfr.height = currentfr.contentDocument.body.offsetHeight
-							+ FFextraHeight;
 				else if (currentfr.Document
 						&& currentfr.Document.body.scrollHeight) //ie5+ syntax
 					currentfr.height = currentfr.Document.body.scrollHeight;
@@ -75,10 +73,8 @@
 		else
 			window.onload = resizeCaller
 	}
-
+	
 	resize();
-	document.getElementById("stopButton").disabled = true;
-	document.getElementById("stopButton").disabled = true;
 
 	function refresh() {
 		document.getElementById('latest-iframe').src = document
@@ -89,7 +85,7 @@
 	function startTimer() {
 		timerVar = setInterval(function() {
 			refresh()
-		}, 5000);
+		}, 8000);
 		document.getElementById("startButton").disabled = true;
 		document.getElementById("stopButton").disabled = false;
 	}
@@ -99,6 +95,8 @@
 		document.getElementById("startButton").disabled = false;
 		document.getElementById("stopButton").disabled = true;
 	}
+	
+	startTimer()
 </script>
 
 <meta name="layout" content="main" />
@@ -162,7 +160,12 @@
 }
 
 #latest-scores iframe {
-	width: 100%;
+	width: 96%;
+	   -moz-box-shadow: 0 0 0.3em #5B5B5B;
+	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
+	        box-shadow: 0 0 0.3em #5B5B5B;
+	margin-top: 1em;
+	margin-left: 2%;
 }
 
 h2 {
@@ -230,11 +233,13 @@ p {
 			like Galaga and Airwolf and compete with your friends across
 			different machines. Battle it out for the high score!</p>
 	</div>
+	<!--
+	<span>Temporary:</span>
 	<button id="startButton" onclick="startTimer()">Start iframe
 		refresh timer</button>
-	<button id="stopButton" onclick="stopTimer()">Stop iframe
+	<button id="stopButton" onclick="stopTimer()" disabled="true">Stop iframe
 		refresh timer</button>
-
+	-->
 	<div id="latest-scores" role="main">
 		<hr>
 		<iframe id="latest-iframe" src="score/latest" scrolling="no"

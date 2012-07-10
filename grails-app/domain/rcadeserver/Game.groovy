@@ -9,6 +9,15 @@ class Game{
 	static hasMany = [scores:Score]
 	String romName
 	String gameName
+	int year
+	String manufacturer
+	String clone_of
+	String rom_of
+	String display_type
+	String screen_type
+	String driver_status
+	String color_status
+	String category
 	
 
 	String getHighScoreString() {
