@@ -31,6 +31,7 @@ class PlayerController {
 				}
 				else{
 					response.status = 500 //Internal Server Error
+					println player.errors
 					render "Could not create new Player due to errors:\n ${player.errors}"
 				}
 				break
