@@ -25,48 +25,38 @@ class GameController {
 		def num = params.int('count')
 		num = ( num == null ? 10 : num )
 		def allScores = Score.getAll()
-		if (allScores.size() == 0) {
-			if (params.boolean('renderXML')){
-				render (text: "<list>\n</list>", contentType:"text",encoding:"UTF-8")
-			}
-			else{
-				redirect(action: "list")
+		//Empty map
+		def counts = [:]
+		//Tally occurrences of games in the score listings
+		for (s in allScores){
+			if (counts[s.game] == null)
+				counts[s.game] = 0
+			counts[s.game] += 1
+		}
+		//Sort the map by occurrence count
+		def tops = counts.sort{ a,b -> b.value <=> a.value}
+		//Num is floored to the size of the keys list, and then decremented
+		//by one since the number of items displayed is one more than
+		//the index of the last item so displayed
+		num = Math.min( num , tops.keySet().toArray().size() )
+		num--
+		List<String> popNames = tops.keySet().toArray()[0 .. Math.max(num,0)]
+		List<Game> popGames = []
+		for (g in popNames) {
+			popGames.add(g)
+		}
+		// If we didn't get anything, put first @count games in
+		if (popGames.isEmpty()){
+			for (int i = 0; i < num; i++){
+				popGames.add(Game.findById(i))
 			}
 		}
+		//popGames = popGames.sort{ a,b -> a.gameName <=> b.gameName}
+		if (params.boolean('renderXML')){
+			render popGames as XML
+		}
 		else{
-			//Empty map
-			def counts = [:]
-			//Tally occurrences of games in the score listings
-			for (s in allScores){
-				if (counts[s.game] == null)
-					counts[s.game] = 0
-				counts[s.game] += 1
-			}
-			//Sort the map by occurrence count
-			def tops = counts.sort{ a,b -> b.value <=> a.value}
-			//Num is floored to the size of the keys list, and then decremented
-			//by one since the number of items displayed is one more than
-			//the index of the last item so displayed
-			num = Math.min( num , tops.keySet().toArray().size() )
-			num--
-			List<String> popNames = tops.keySet().toArray()[0 .. Math.max(num,0)]
-			List<Game> popGames = []
-			for (g in popNames) {
-				popGames.add(g)
-			}
-			// If we didn't get anything, put first @count games in
-			if (popGames.isEmpty()){
-				for (int i = 0; i < num; i++){
-					popGames.add(Game.findById(i))
-				}
-			}
-			//popGames = popGames.sort{ a,b -> a.gameName <=> b.gameName}
-			if (params.boolean('renderXML')){
-				render popGames as XML
-			}
-			else{
-				render(view:"list", model:[gameInstanceList:popGames, gameInstanceTotal:popGames.size()])
-			}
+			render(view:"list", model:[gameInstanceList:popGames, gameInstanceTotal:popGames.size()])
 		}
 	}
 
@@ -75,13 +65,31 @@ class GameController {
 		// Find x most recent scores for this game
 		// Render out an RSS XML document of these scores
 		// http://grails.org/plugin/feeds
+
+		// Which game?
 		def theID = params.int('id')
 		def theGame = Game.findById(theID)
+		// If no game, render blank
 		if (theGame == null){
 			render ""
 			return
 		}
-		def latestScores = Score.findAllByGame(theGame)
+		// Get scores
+		def gameScores = Score.findAllByGame(theGame)
+		def latestScores = new ArrayList<Score>()
+		// Which player?
+		def thePlayer = Player.findByName(params.player)
+		// If a player supplied, filter out unassociated scores
+		if (thePlayer != null && params.player != null){
+			for (Score s : gameScores){
+				if (s.player == thePlayer){
+					latestScores.add(s)
+				}
+			}
+		}
+		else{
+			latestScores = gameScores
+		}
 		render(feedType:"rss", feedVersion:"2.0"){
 			title = "top-scoring players of " + theGame.gameName
 			link = "dummy.com"
