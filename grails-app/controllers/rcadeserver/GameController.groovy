@@ -67,35 +67,27 @@ class GameController {
 		// http://grails.org/plugin/feeds
 
 		// Which game?
-		def theID = params.int('id')
-		def theGame = Game.findById(theID)
-		// If no game, render blank
+		def theGame = Game.findByRomName(params.gameName)
+		// If no such game, 404
 		if (theGame == null){
-			render ""
-			return
+			response.sendError(404)
 		}
-		// Get scores
-		def gameScores = Score.findAllByGame(theGame)
-		def latestScores = new ArrayList<Score>()
 		// Which player?
-		def thePlayer = Player.findByName(params.player)
-		// If a player supplied, filter out unassociated scores
-		if (thePlayer != null && params.player != null){
-			for (Score s : gameScores){
-				if (s.player == thePlayer){
-					latestScores.add(s)
-				}
-			}
-		}
-		else{
-			latestScores = gameScores
-		}
+		def thePlayer = (params.playerName ? Player.findByName(params.playerName) : null)
+		// Get scores
+		def latestScores = Score.findAllByGame(theGame)
 		render(feedType:"rss", feedVersion:"2.0"){
-			title = "top-scoring players of " + theGame.gameName
+			// Latest scores in {gameName} set by {playerName | everyone}
+			title = "Latest scores in " + theGame.gameName + " set by " + (params.playerName ? params.playerName : "everyone")
+			// Should eventually point back to a reasonable web page
 			link = "dummy.com"
 			description = "High scores set in " + theGame.gameName
 
 			latestScores.each(){ score ->
+				// If a player was specified but this score does not match, don't render it
+				if(params.playerName != null && score.player != thePlayer){
+					return
+				}
 				entry{
 					title = score.player.name + ": " + score.score
 					link = "http://localhost:8080/RcadeServer/score/show/${score.id}"
@@ -143,60 +135,60 @@ class GameController {
 	def index = {
 		switch(request.method){
 			case "POST":
-				render "Create\n"
-				def game = new Game(params.game)
-				if(game.save()){
-					response.status = 201 // Created
-					//render game as XML
-				}
-				else{
-					response.status = 500 //Internal Server Error
-					render "Could not create new Game due to errors:\n ${game.errors}"
-				}
-				break
+			render "Create\n"
+			def game = new Game(params.game)
+			if(game.save()){
+				response.status = 201 // Created
+				//render game as XML
+			}
+			else{
+				response.status = 500 //Internal Server Error
+				render "Could not create new Game due to errors:\n ${game.errors}"
+			}
+			break
 
 			case "GET":
-				if(params.romName){
-					// Put the proper id in params, then redirect to the single-item XML
-					def g = Game.findByRomName(params.romName)
-					params.id = g == null ? null : g.id
-					redirect(action: "xmlShow", params: params)
-					response.status = 200 //Okay
-				}
-				else{
-					redirect(action: "xmlList")
-				}
-				break
+			if(params.romName){
+				// Put the proper id in params, then redirect to the single-item XML
+				def g = Game.findByRomName(params.romName)
+				params.id = g == null ? null : g.id
+				redirect(action: "xmlShow", params: params)
+				response.status = 200 //Okay
+			}
+			else{
+				redirect(action: "xmlList")
+			}
+			break
 
 			case "PUT":
-				def game = Game.findByRomName(params.romName)
-				game.properties = params.game
-				if(game.save()) {
-					response.status = 200 //Okay
-					render game as XML
-				} else {
-					response.status = 500 //Internal server error
-					render "Could not create new game due to errors:\n ${game.errors}"
-				}
-				break
+			def game = Game.findByRomName(params.romName)
+			game.properties = params.game
+			if(game.save()) {
+				response.status = 200 //Okay
+				render game as XML
+			} else {
+				response.status = 500 //Internal server error
+				render "Could not create new game due to errors:\n ${game.errors}"
+			}
+			break
 
 			case "DELETE":
-				if(params.romName){
-					def game = Game.findByRomName(params.romName)
-					if(game){
-						game.delete()
-						render "Successfully Deleted."
-						response.status = 200 //Okay
-					}else{
-						response.status = 404 //Not Found
-						render "${params.romName} not found."
-					}
+			if(params.romName){
+				def game = Game.findByRomName(params.romName)
+				if(game){
+					game.delete()
+					render "Successfully Deleted."
+					response.status = 200 //Okay
 				}else{
-					response.status = 400 //Bad Request
-					render "DELETE request must include the romName\nExample: /rest/game/romName"
-
+					response.status = 404 //Not Found
+					render "${params.romName} not found."
 				}
-				break
+			}else{
+				response.status = 400 //Bad Request
+				render "DELETE request must include the romName\nExample: /rest/game/romName"
+
+			}
+			break
 		}
 	}
 
@@ -209,7 +201,7 @@ class GameController {
 		}
 		scores = gameInstance.scores
 		if(scores)
-			gameInstance.highScore = scores[0]
+		gameInstance.highScore = scores[0]
 	}
 
 
@@ -273,8 +265,8 @@ class GameController {
 			def version = params.version.toLong()
 			if (gameInstance.version > version) {
 				gameInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-						[message(code: 'game.label', default: 'Game')] as Object[],
-						"Another user has updated this Game while you were editing")
+				[message(code: 'game.label', default: 'Game')] as Object[],
+				"Another user has updated this Game while you were editing")
 				render(view: "edit", model: [gameInstance: gameInstance])
 				return
 			}

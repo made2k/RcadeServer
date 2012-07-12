@@ -4,6 +4,13 @@
 <html>
 <head>
 <meta name="layout" content="main">
+<style>
+img.RSS {
+	display: block;
+	margin-left:auto;
+	margin-right:auto
+}
+</style>
 <g:set var="entityName"
 	value="${message(code: 'player.label', default: 'Player')}" />
 <title><g:message code="default.show.label" args="[entityName]" /></title>
@@ -48,22 +55,21 @@
 
 
 			<g:if test="${playerInstance?.name}">
-				<li class="fieldcontain">
-					<span id="name-label" class="property-label">
-						<g:message code="player.name.label" default="Name" />
-					</span>
-					<span class="property-value" aria-labelledby="name-label">
-						<g:fieldValue bean="${playerInstance}" field="name" />
-					</span>
-				</li>
+				<li class="fieldcontain"><span id="name-label"
+					class="property-label"> <g:message code="player.name.label"
+							default="Name" />
+				</span> <span class="property-value" aria-labelledby="name-label"> <g:fieldValue
+							bean="${playerInstance}" field="name" />
+				</span></li>
 			</g:if>
-			
+
 			<g:if test="${playerInstance?.scores}">
-				<li class="fieldcontain">
-					<span id="scores-label" class="property-label">
-						<g:message code="player.scores.label" default="Recent Scores" />
-					</span>
-					<g:each in="${playerInstance.scores.sort{a,b-> (a.dateCreated>b.dateCreated ? -1 : 1)}}" var="s" status="i">
+				<li class="fieldcontain"><span id="scores-label"
+					class="property-label"> <g:message
+							code="player.scores.label" default="Recent Scores" />
+				</span> <g:each
+						in="${playerInstance.scores.sort{a,b-> (a.dateCreated>b.dateCreated ? -1 : 1)}}"
+						var="s" status="i">
 						<g:if test="${ i<10 }">
 							<span class="property-value" aria-labelledby="scores-label">
 								<g:link controller="score" action="show" id="${s.id}">
@@ -71,32 +77,34 @@
 								</g:link>
 							</span>
 						</g:if>
-					</g:each>
-				</li>
+					</g:each></li>
 			</g:if>
 			<g:else>
-				<li class="fieldcontain">
-					<span id="scores-label" class="property-label">
-						<g:message code="player.scores.label" default="Recent Scores" />
-					</span>
-					<span class="property-value" aria-labelledby="scores-label">
+				<li class="fieldcontain"><span id="scores-label"
+					class="property-label"> <g:message
+							code="player.scores.label" default="Recent Scores" />
+				</span> <span class="property-value" aria-labelledby="scores-label">
 						<g:message code="player.scores.label" default="None" />
-					</span>
-				</li>
+				</span></li>
 			</g:else>
 		</ol>
+		<g:link controller="player" action="RSS"
+			params="[playerName: playerInstance.name]">
+			<img class="RSS"
+				src="${resource(dir: 'images', file: 'RSS_22px.png')}" alt="Rcade" />
+		</g:link>
 		<g:if test="${session?.user?.isAdmin() }">
-		<g:form>
-			<fieldset class="buttons">
-				<g:hiddenField name="id" value="${playerInstance?.id}" />
-				<g:link class="edit" action="edit" id="${playerInstance?.id}">
-					<g:message code="default.button.edit.label" default="Edit" />
-				</g:link>
-				<g:actionSubmit class="delete" action="delete"
-					value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-					onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-			</fieldset>
-		</g:form>
+			<g:form>
+				<fieldset class="buttons">
+					<g:hiddenField name="id" value="${playerInstance?.id}" />
+					<g:link class="edit" action="edit" id="${playerInstance?.id}">
+						<g:message code="default.button.edit.label" default="Edit" />
+					</g:link>
+					<g:actionSubmit class="delete" action="delete"
+						value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+						onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+				</fieldset>
+			</g:form>
 		</g:if>
 	</div>
 </body>

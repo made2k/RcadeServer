@@ -4,6 +4,13 @@
 <html>
 <head>
 <meta name="layout" content="main">
+<style>
+img.RSS {
+	display: block;
+	margin-left:auto;
+	margin-right:auto
+}
+</style>
 <g:set var="entityName"
 	value="${message(code: 'game.label', default: 'Game')}" />
 <title><g:message code="default.show.label" args="[entityName]" /></title>
@@ -34,7 +41,8 @@
 				${flash.message}
 			</div>
 		</g:if>
-		<ol class="property-list game">	
+
+		<ol class="property-list game">
 			<g:if test="${gameInstance?.gameName}">
 				<li class="fieldcontain"><span id="gameName-label"
 					class="property-label"><g:message code="game.gameName.label"
@@ -42,19 +50,16 @@
 					aria-labelledby="gameName-label"><g:fieldValue
 							bean="${gameInstance}" field="gameName" /></span></li>
 			</g:if>
-			
+
 			<g:if test="${gameInstance?.romName}">
-				<li class="fieldcontain">
-					<span id="romName-label" class="property-label">
-						<g:message code="game.romName.label" default="Rom Name" />
-					</span>
-					<span class="property-value" aria-labelledby="romName-label">
-						<g:fieldValue bean="${gameInstance}" field="romName"/>
-					</span>
-					
-				</li>
+				<li class="fieldcontain"><span id="romName-label"
+					class="property-label"> <g:message code="game.romName.label"
+							default="Rom Name" />
+				</span> <span class="property-value" aria-labelledby="romName-label">
+						<g:fieldValue bean="${gameInstance}" field="romName" />
+				</span></li>
 			</g:if>
-			
+
 			<li class="fieldcontain"><span id="rss-label"
 				class="property-label">RSS Feed</span> <span class="property-value"
 				aria-labelledby="rss-label">
@@ -75,7 +80,7 @@
 			<g:if test="${gameInstance?.scores}">
 				<li class="fieldcontain"><span id="scores-label"
 					class="property-label"><g:message code="game.scores.label"
-							default="High Scores" /></span> <g:each
+							default="High Scores" /> </span> <g:each
 						in="${gameInstance.scores.sort{a,b-> (a.score>b.score ? -1 : 1)}}"
 						var="s" status="i">
 						<g:if test="${ i<15 }">
@@ -88,6 +93,13 @@
 			</g:if>
 
 		</ol>
+
+		<g:link controller="game" action="RSS"
+			params="[gameName: gameInstance.romName]">
+			<img class="RSS" src="${resource(dir: 'images', file: 'RSS_22px.png')}"
+				alt="Rcade" />
+		</g:link>
+
 		<g:if test="${session?.user?.isAdmin() }">
 			<g:form>
 				<fieldset class="buttons">
