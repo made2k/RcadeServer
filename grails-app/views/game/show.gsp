@@ -60,15 +60,6 @@ img.RSS {
 				</span></li>
 			</g:if>
 
-			<li class="fieldcontain"><span id="rss-label"
-				class="property-label">RSS Feed</span> <span class="property-value"
-				aria-labelledby="rss-label">
-					<link rel="alternate" type="application/rss+xml"
-						title="RCade Scores"
-						href="/RcadeServer/game/RSS?id=${gameInstance?.id }" /> <a
-					href="/RcadeServer/game/RSS?id=${gameInstance?.id }">Active</a>
-			</span></li>
-
 			<g:if test="${!gameInstance?.scores}">
 				<li class="fieldcontain"><span id="scores-label"
 					class="property-label"><g:message code="game.scores.label"
@@ -95,10 +86,14 @@ img.RSS {
 		</ol>
 
 		<g:link controller="game" action="RSS"
-			params="[gameName: gameInstance.romName]">
+			params="[romName: gameInstance.romName]">
 			<img class="RSS" src="${resource(dir: 'images', file: 'RSS_22px.png')}"
 				alt="Rcade" />
 		</g:link>
+		<!-- Auto Discovery for RSS -->
+		<link rel="alternate" type="application/rss+xml"
+			title="${'Scores set in ' + gameInstance.gameName }"
+			href="${'/RcadeServer/rest/game/RSS/' + gameInstance.romName}" />
 
 		<g:if test="${session?.user?.isAdmin() }">
 			<g:form>

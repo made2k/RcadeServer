@@ -67,7 +67,7 @@ class GameController {
 		// http://grails.org/plugin/feeds
 
 		// Which game?
-		def theGame = Game.findByRomName(params.gameName)
+		def theGame = Game.findByRomName(params.romName)
 		// If no such game, 404
 		if (theGame == null){
 			response.sendError(404)

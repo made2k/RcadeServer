@@ -7,8 +7,8 @@
 <style>
 img.RSS {
 	display: block;
-	margin-left:auto;
-	margin-right:auto
+	margin-left: auto;
+	margin-right: auto
 }
 </style>
 <g:set var="entityName"
@@ -93,6 +93,10 @@ img.RSS {
 			<img class="RSS"
 				src="${resource(dir: 'images', file: 'RSS_22px.png')}" alt="Rcade" />
 		</g:link>
+		<!-- Auto Discovery for RSS -->
+		<link rel="alternate" type="application/rss+xml"
+			title="${'Scores set by ' + playerInstance.name }"
+			href="${'/RcadeServer/rest/player/RSS/' + playerInstance.name}" />
 		<g:if test="${session?.user?.isAdmin() }">
 			<g:form>
 				<fieldset class="buttons">
