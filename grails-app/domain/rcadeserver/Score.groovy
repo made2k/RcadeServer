@@ -26,7 +26,7 @@ class Score {
 	}
 	
 	static mapping = {
-		sort score: "asc"
+		sort dateCreated: "desc"
 	}
 	
 	BigInteger getScore(){
