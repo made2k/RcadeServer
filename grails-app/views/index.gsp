@@ -2,103 +2,21 @@
 <html>
 <head>
 <script type="text/javascript">
-	function resize() {
-		/***********************************************
-		 * IFrame SSI script II- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
-		 * Visit DynamicDrive.com for hundreds of original DHTML scripts
-		 * This notice must stay intact for legal use
-		 ***********************************************/
-
-		//Input the IDs of the IFRAMES you wish to dynamically resize to match its content height:
-		//Separate each ID with a comma. Examples: ["myframe1", "myframe2"] or ["myframe"] or [] for none:
-		var iframeids = [ "latest-iframe" ]
-
-		//Should script hide iframe from browsers that don't support this script (non IE5+/NS6+ browsers. Recommended):
-		var iframehide = "yes"
-
-		var getFFVersion = navigator.userAgent.substring(
-				navigator.userAgent.indexOf("Firefox")).split("/")[1]
-
-		function resizeCaller() {
-			var dyniframe = new Array()
-			for (i = 0; i < iframeids.length; i++) {
-				if (document.getElementById)
-					resizeIframe(iframeids[i])
-					//reveal iframe for lower end browsers? (see var above):
-				if ((document.all || document.getElementById)
-						&& iframehide == "no") {
-					var tempobj = document.all ? document.all[iframeids[i]]
-							: document.getElementById(iframeids[i])
-					tempobj.style.display = "block"
-				}
-			}
-		}
-
-		function resizeIframe(frameid) {
-			var currentfr = document.getElementById(frameid)
-			if (currentfr && !window.opera) {
-				currentfr.style.display = "block"
-				if (currentfr.contentDocument
-						&& currentfr.contentDocument.body.offsetHeight) //ns6 syntax
-					currentfr.height = currentfr.contentDocument.body.offsetHeight
-				else if (currentfr.Document
-						&& currentfr.Document.body.scrollHeight) //ie5+ syntax
-					currentfr.height = currentfr.Document.body.scrollHeight;
-				if (currentfr.addEventListener)
-					currentfr.addEventListener("load", readjustIframe, false)
-				else if (currentfr.attachEvent) {
-					currentfr.detachEvent("onload", readjustIframe) // Bug fix line
-					currentfr.attachEvent("onload", readjustIframe)
-				}
-			}
-		}
-
-		function readjustIframe(loadevt) {
-			var crossevt = (window.event) ? event : loadevt
-			var iframeroot = (crossevt.currentTarget) ? crossevt.currentTarget
-					: crossevt.srcElement
-			if (iframeroot)
-				resizeIframe(iframeroot.id);
-		}
-
-		function loadintoIframe(iframeid, url) {
-			if (document.getElementById)
-				document.getElementById(iframeid).src = url
-		}
-
-		if (window.addEventListener)
-			window.addEventListener("load", resizeCaller, false)
-		else if (window.attachEvent)
-			window.attachEvent("onload", resizeCaller)
-		else
-			window.onload = resizeCaller
-	}
-	
-	resize();
-
 	function refresh() {
-		document.getElementById('latest-iframe').src = document
-				.getElementById('latest-iframe').src;
-		resize();
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", "score/testLatest", false);
+		xmlhttp.send();
+		document.getElementById('test').innerHTML = xmlhttp.responseText;
 	}
 
 	function startTimer() {
-		timerVar = setInterval(function() {
+		timerVar = setInterval(	function(){
 			refresh()
-		}, 8000);
-		document.getElementById("startButton").disabled = true;
-		document.getElementById("stopButton").disabled = false;
-	}
-
-	function stopTimer() {
-		clearInterval(timerVar);
-		document.getElementById("startButton").disabled = false;
-		document.getElementById("stopButton").disabled = true;
+		}, 1000);
 	}
 	
 	startTimer()
 </script>
-
 <meta name="layout" content="main" />
 <title>Rcade High Scores</title>
 <style type="text/css" media="screen">
@@ -241,9 +159,8 @@ p {
 		refresh timer</button>
 	-->
 	<div id="latest-scores" role="main">
-		<hr>
-		<iframe id="latest-iframe" src="score/latest" scrolling="no"
-			frameborder="0"></iframe>
+		
 	</div>
+	<div id="test"></div>
 </body>
 </html>
