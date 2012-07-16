@@ -23,7 +23,7 @@ class ScoreController {
 	}
 	
 	def testLatest = {
-		render(view:"latest")
+		render(view:"_latest")
 	}
 
 	def xmlShow = {

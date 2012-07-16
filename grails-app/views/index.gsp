@@ -1,22 +1,6 @@
 <!doctype html>
 <html>
 <head>
-<script type="text/javascript">
-	function refresh() {
-		xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("GET", "score/testLatest", false);
-		xmlhttp.send();
-		document.getElementById('test').innerHTML = xmlhttp.responseText;
-	}
-
-	function startTimer() {
-		timerVar = setInterval(	function(){
-			refresh()
-		}, 1000);
-	}
-	
-	startTimer()
-</script>
 <meta name="layout" content="main" />
 <title>Rcade High Scores</title>
 <style type="text/css" media="screen">
@@ -79,11 +63,12 @@
 
 #latest-scores iframe {
 	width: 96%;
-	   -moz-box-shadow: 0 0 0.3em #5B5B5B;
-	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
-	        box-shadow: 0 0 0.3em #5B5B5B;
+	-moz-box-shadow: 0 0 0.3em #5B5B5B; -webkit-box-shadow : 0 0 0.3em
+	#5B5B5B;
+	box-shadow: 0 0 0.3em #5B5B5B;
 	margin-top: 1em;
 	margin-left: 2%;
+	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
 }
 
 h2 {
@@ -109,8 +94,51 @@ p {
 	}
 }
 </style>
+<script type="text/javascript">	
+	var hiColor = 0xFAFA78;
+	var evenBase = 0xFFFFFF;
+	var oddBase = 0xF7F7F7;
+	var hiDiff = -0x000008;
+	var hiTimer = null;
+
+	function refresh() {
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", "score/testLatest", false);
+		xmlhttp.send();
+		if(document.getElementById('test').innerHTML != xmlhttp.responseText){
+			document.getElementById('test').innerHTML = xmlhttp.responseText;
+			document.title = ;
+		}
+		//hiTimer = setInterval(function(){highlight()},100);
+	}
+
+	function highlight(){
+		evenBase += hiDiff;
+		if(evenBase <= 0xFFFFAF){
+			hiDiff *= -1;
+		}
+		if(evenBase >= 0xFFFFFF){
+			evenBase = 0xFFFFFF;
+			hiDiff = -0x000008;
+			clearInterval(hiTimer);
+		}
+		document.getElementById('0').style.backgroundColor = '#' + (evenBase).toString(16);
+	}
+
+	function highlightDiv(div){
+		
+	}
+	
+	function startTimer() {
+		timerVar = setInterval(	function(){
+			refresh()
+		}, 5000);
+	}
+	
+	startTimer();
+</script>
 </head>
-<body>
+<body id="body">
 	<a href="#page-body" class="skip"><g:message
 			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 
@@ -119,48 +147,40 @@ p {
 			${flash.message}
 		</div>
 	</g:if>
-
-	<div id="controller-list" role="navigation">
-		<h1>View:</h1>
-		<ul>
-			<g:each var="c"
-				in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-				<g:if test="${!session?.user?.isAdmin() }">
-					<!-- If user not admin, don't show special classes -->
-					<g:if test="${c.name == 'Game' || c.name == 'Player' || c.name == 'Score'}">
+	<div id="wrapper" style="overflow: hidden">
+		<div id="controller-list" role="navigation">
+			<h1 class="center">View:</h1>
+			<ul>
+				<g:each var="c"
+					in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+					<g:if test="${!session?.user?.isAdmin() }">
+						<!-- If user not admin, don't show special classes -->
+						<g:if
+							test="${c.name == 'Game' || c.name == 'Player' || c.name == 'Score'}">
+							<li class="controller"><g:link controller="${c.name}"
+									action="list">
+									${c.name}s</g:link></li>
+						</g:if>
+					</g:if>
+					<g:else>
+						<!-- If user is admin, show all classes -->
 						<li class="controller"><g:link controller="${c.name}"
 								action="list">
 								${c.name}s</g:link></li>
-					</g:if>
-				</g:if>
-				<g:else>
-					<!-- If user is admin, show all classes -->
-					<li class="controller"><g:link controller="${c.name}"
-							action="list">
-							${c.name}s</g:link></li>
-				</g:else>
-			</g:each>
-		</ul>
-	</div>
+					</g:else>
+				</g:each>
+			</ul>
+		</div>
 
-	<div id="page-body" role="main">
-		<h1>Welcome to Rcade</h1>
-		<p>Rcade is a front-end interface for the MAME emulator. Rcade is
-			built off of Wah!Cade and adds networking and persistent high scores
-			for all of your favorite games. With Rcade you are able to play games
-			like Galaga and Airwolf and compete with your friends across
-			different machines. Battle it out for the high score!</p>
+		<div id="page-body" role="main">
+			<h1>Welcome to Rcade</h1>
+			<p>Rcade is a front-end interface for the MAME emulator. Rcade is
+				built off of Wah!Cade and adds networking and persistent high scores
+				for all of your favorite games. With Rcade you are able to play
+				games like Galaga and Airwolf and compete with your friends across
+				different machines. Battle it out for the high score!</p>
+		</div>
 	</div>
-	<!--
-	<span>Temporary:</span>
-	<button id="startButton" onclick="startTimer()">Start iframe
-		refresh timer</button>
-	<button id="stopButton" onclick="stopTimer()" disabled="true">Stop iframe
-		refresh timer</button>
-	-->
-	<div id="latest-scores" role="main">
-		
-	</div>
-	<div id="test"></div>
+	<div id="test"><g:render template="/score/latest"/></div>
 </body>
 </html>

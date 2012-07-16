@@ -77,6 +77,12 @@ h1 {
 	color: #73C167;
 	font-weight: bold;
 	font-size: 1.5em;
+	text-align: left;
+	margin-bottom: 20px;
+}
+
+h1.center {
+	text-align: center;
 }
 
 ul {
@@ -472,6 +478,21 @@ th.desc a {
 
 th:hover,tr:hover {
 	background: #E1F2B6;
+}
+
+/* th with no hover don't emboss */
+th.nohov:hover {
+	background-image: -moz-linear-gradient(top, #ffffff, #eaeaea);
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff),
+		color-stop(1, #eaeaea) );
+}
+
+/* tr with no hover don't highlight */
+tr.nohov.even:hover {
+	background: #ffffff;
+}
+tr.nohov.odd:hover {
+	background: #f7f7f7;
 }
 
 /* PAGINATION */
