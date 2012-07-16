@@ -95,11 +95,6 @@ p {
 }
 </style>
 <script type="text/javascript">	
-	var hiColor = 0xFAFA78;
-	var evenBase = 0xFFFFFF;
-	var oddBase = 0xF7F7F7;
-	var hiDiff = -0x000008;
-	var hiTimer = null;
 
 	function refresh() {
 		xmlhttp = new XMLHttpRequest();
@@ -109,24 +104,6 @@ p {
 			document.getElementById('test').innerHTML = xmlhttp.responseText;
 			document.title = ;
 		}
-		//hiTimer = setInterval(function(){highlight()},100);
-	}
-
-	function highlight(){
-		evenBase += hiDiff;
-		if(evenBase <= 0xFFFFAF){
-			hiDiff *= -1;
-		}
-		if(evenBase >= 0xFFFFFF){
-			evenBase = 0xFFFFFF;
-			hiDiff = -0x000008;
-			clearInterval(hiTimer);
-		}
-		document.getElementById('0').style.backgroundColor = '#' + (evenBase).toString(16);
-	}
-
-	function highlightDiv(div){
-		
 	}
 	
 	function startTimer() {
