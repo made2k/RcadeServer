@@ -22,7 +22,7 @@ class ScoreController {
 		render Score.list() as XML
 	}
 	
-	def testLatest = {
+	def latestAJAX = {
 		render(view:"_latest")
 	}
 
