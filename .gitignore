@@ -8,10 +8,10 @@
 
 # Personal Data Source Config
 ###########################
-grails-app/conf/DataSource.groovy
+DataSource.groovy
 
 # Personal Boot Strap
 ###########################
-grails-app/conf/BootStrap.groovy
+BootStrap.groovy
 
 SupportScripts/PostToYammer.py

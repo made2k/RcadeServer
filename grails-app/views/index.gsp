@@ -97,7 +97,6 @@ p {
 		xmlhttp.send();
 		if(document.getElementById('latestAJAX').innerHTML != xmlhttp.responseText){
 			document.getElementById('latestAJAX').innerHTML = xmlhttp.responseText;
-			document.title = ;
 		}
 	}
 	
@@ -152,7 +151,7 @@ p {
 				games like Galaga and Airwolf and compete with your friends across
 				different machines. Battle it out for the high score!</p>
 		</div>
-	</div>
-	<div id="latestAJAX"><hr><g:render template="/score/latest"/></div>
+	</div><hr>
+	<div id="latestAJAX"><g:render template="/score/latest"/></div>
 </body>
 </html>
