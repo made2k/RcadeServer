@@ -17,6 +17,14 @@ class ScoreController {
 	def xmlList = {
 		render Score.list() as XML
 	}
+	
+	def xmlLatest = {
+		render Score.list() as XML
+	}
+	
+	def latestAJAX = {
+		render(view:"_latest")
+	}
 
 	def xmlShow = {
 		render Score.get(params.id) as XML

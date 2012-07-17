@@ -1,104 +1,6 @@
 <!doctype html>
 <html>
 <head>
-<script type="text/javascript">
-	function resize() {
-		/***********************************************
-		 * IFrame SSI script II- © Dynamic Drive DHTML code library (http://www.dynamicdrive.com)
-		 * Visit DynamicDrive.com for hundreds of original DHTML scripts
-		 * This notice must stay intact for legal use
-		 ***********************************************/
-
-		//Input the IDs of the IFRAMES you wish to dynamically resize to match its content height:
-		//Separate each ID with a comma. Examples: ["myframe1", "myframe2"] or ["myframe"] or [] for none:
-		var iframeids = [ "latest-iframe" ]
-
-		//Should script hide iframe from browsers that don't support this script (non IE5+/NS6+ browsers. Recommended):
-		var iframehide = "yes"
-
-		var getFFVersion = navigator.userAgent.substring(
-				navigator.userAgent.indexOf("Firefox")).split("/")[1]
-
-		function resizeCaller() {
-			var dyniframe = new Array()
-			for (i = 0; i < iframeids.length; i++) {
-				if (document.getElementById)
-					resizeIframe(iframeids[i])
-					//reveal iframe for lower end browsers? (see var above):
-				if ((document.all || document.getElementById)
-						&& iframehide == "no") {
-					var tempobj = document.all ? document.all[iframeids[i]]
-							: document.getElementById(iframeids[i])
-					tempobj.style.display = "block"
-				}
-			}
-		}
-
-		function resizeIframe(frameid) {
-			var currentfr = document.getElementById(frameid)
-			if (currentfr && !window.opera) {
-				currentfr.style.display = "block"
-				if (currentfr.contentDocument
-						&& currentfr.contentDocument.body.offsetHeight) //ns6 syntax
-					currentfr.height = currentfr.contentDocument.body.offsetHeight
-				else if (currentfr.Document
-						&& currentfr.Document.body.scrollHeight) //ie5+ syntax
-					currentfr.height = currentfr.Document.body.scrollHeight;
-				if (currentfr.addEventListener)
-					currentfr.addEventListener("load", readjustIframe, false)
-				else if (currentfr.attachEvent) {
-					currentfr.detachEvent("onload", readjustIframe) // Bug fix line
-					currentfr.attachEvent("onload", readjustIframe)
-				}
-			}
-		}
-
-		function readjustIframe(loadevt) {
-			var crossevt = (window.event) ? event : loadevt
-			var iframeroot = (crossevt.currentTarget) ? crossevt.currentTarget
-					: crossevt.srcElement
-			if (iframeroot)
-				resizeIframe(iframeroot.id);
-		}
-
-		function loadintoIframe(iframeid, url) {
-			if (document.getElementById)
-				document.getElementById(iframeid).src = url
-		}
-
-		if (window.addEventListener)
-			window.addEventListener("load", resizeCaller, false)
-		else if (window.attachEvent)
-			window.attachEvent("onload", resizeCaller)
-		else
-			window.onload = resizeCaller
-	}
-	
-	resize();
-
-	function refresh() {
-		document.getElementById('latest-iframe').src = document
-				.getElementById('latest-iframe').src;
-		resize();
-	}
-
-	function startTimer() {
-		timerVar = setInterval(function() {
-			refresh()
-		}, 8000);
-		document.getElementById("startButton").disabled = true;
-		document.getElementById("stopButton").disabled = false;
-	}
-
-	function stopTimer() {
-		clearInterval(timerVar);
-		document.getElementById("startButton").disabled = false;
-		document.getElementById("stopButton").disabled = true;
-	}
-	
-	startTimer()
-</script>
-
 <meta name="layout" content="main" />
 <title>Rcade High Scores</title>
 <style type="text/css" media="screen">
@@ -150,22 +52,18 @@
 	margin: 2em 3em 1.25em 14em;
 }
 
-#latest-scores {
-	clear: both;
-}
-
-#latest-scores hr {
-	margin: 1em 1em 0em 1em;
+#latestAJAX hr {
+	margin: 1em 1em 0.5em 1em;
 	color: #e6e6e6;
 }
 
 #latest-scores iframe {
 	width: 96%;
-	   -moz-box-shadow: 0 0 0.3em #5B5B5B;
-	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
-	        box-shadow: 0 0 0.3em #5B5B5B;
+	-moz-box-shadow: 0 0 0.3em #5B5B5B;
+	box-shadow: 0 0 0.3em #5B5B5B;
 	margin-top: 1em;
 	margin-left: 2%;
+	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
 }
 
 h2 {
@@ -191,8 +89,28 @@ p {
 	}
 }
 </style>
+<script type="text/javascript">	
+
+	function refresh() {
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("GET", "score/latestAJAX", false);
+		xmlhttp.send();
+		if(document.getElementById('latestAJAX').innerHTML != xmlhttp.responseText){
+			document.getElementById('latestAJAX').innerHTML = xmlhttp.responseText;
+			document.title = ;
+		}
+	}
+	
+	function startTimer() {
+		timerVar = setInterval(	function(){
+			refresh()
+		}, 5000);
+	}
+	
+	startTimer();
+</script>
 </head>
-<body>
+<body id="body">
 	<a href="#page-body" class="skip"><g:message
 			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 
@@ -201,49 +119,40 @@ p {
 			${flash.message}
 		</div>
 	</g:if>
-
-	<div id="controller-list" role="navigation">
-		<h1>View:</h1>
-		<ul>
-			<g:each var="c"
-				in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-				<g:if test="${!session?.user?.isAdmin() }">
-					<!-- If user not admin, don't show special classes -->
-					<g:if test="${c.name == 'Game' || c.name == 'Player' || c.name == 'Score'}">
+	<div id="wrapper" style="overflow: hidden">
+		<div id="controller-list" role="navigation">
+			<h1 class="center">View:</h1>
+			<ul>
+				<g:each var="c"
+					in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+					<g:if test="${!session?.user?.isAdmin() }">
+						<!-- If user not admin, don't show special classes -->
+						<g:if
+							test="${c.name == 'Game' || c.name == 'Player' || c.name == 'Score'}">
+							<li class="controller"><g:link controller="${c.name}"
+									action="list">
+									${c.name}s</g:link></li>
+						</g:if>
+					</g:if>
+					<g:else>
+						<!-- If user is admin, show all classes -->
 						<li class="controller"><g:link controller="${c.name}"
 								action="list">
 								${c.name}s</g:link></li>
-					</g:if>
-				</g:if>
-				<g:else>
-					<!-- If user is admin, show all classes -->
-					<li class="controller"><g:link controller="${c.name}"
-							action="list">
-							${c.name}s</g:link></li>
-				</g:else>
-			</g:each>
-		</ul>
-	</div>
+					</g:else>
+				</g:each>
+			</ul>
+		</div>
 
-	<div id="page-body" role="main">
-		<h1>Welcome to Rcade</h1>
-		<p>Rcade is a front-end interface for the MAME emulator. Rcade is
-			built off of Wah!Cade and adds networking and persistent high scores
-			for all of your favorite games. With Rcade you are able to play games
-			like Galaga and Airwolf and compete with your friends across
-			different machines. Battle it out for the high score!</p>
+		<div id="page-body" role="main">
+			<h1>Welcome to Rcade</h1>
+			<p>Rcade is a front-end interface for the MAME emulator. Rcade is
+				built off of Wah!Cade and adds networking and persistent high scores
+				for all of your favorite games. With Rcade you are able to play
+				games like Galaga and Airwolf and compete with your friends across
+				different machines. Battle it out for the high score!</p>
+		</div>
 	</div>
-	<!--
-	<span>Temporary:</span>
-	<button id="startButton" onclick="startTimer()">Start iframe
-		refresh timer</button>
-	<button id="stopButton" onclick="stopTimer()" disabled="true">Stop iframe
-		refresh timer</button>
-	-->
-	<div id="latest-scores" role="main">
-		<hr>
-		<iframe id="latest-iframe" src="score/latest" scrolling="no"
-			frameborder="0"></iframe>
-	</div>
+	<div id="latestAJAX"><hr><g:render template="/score/latest"/></div>
 </body>
 </html>
