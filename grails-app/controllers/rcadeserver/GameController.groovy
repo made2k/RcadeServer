@@ -35,21 +35,13 @@ class GameController {
 		}
 		//Sort the map by occurrence count
 		def tops = counts.sort{ a,b -> b.value <=> a.value}
-		//Num is floored to the size of the keys list, and then decremented
-		//by one since the number of items displayed is one more than
-		//the index of the last item so displayed
-		num = Math.min( num , tops.keySet().toArray().size() )
-		num--
-		List<String> popNames = tops.keySet().toArray()[0 .. Math.max(num,0)]
+		//Num is floored to the size of the keys list, less one (0-indexing)
+		num = Math.min( num , tops.keySet().toArray().size()-1 )
+		//If num won't validly slice popNames, popNames becomes empty
+		List<String> popNames = num <= 0 ? [] : tops.keySet().toArray()[0 .. num]
 		List<Game> popGames = []
 		for (g in popNames) {
 			popGames.add(g)
-		}
-		// If we didn't get anything, put first @count games in
-		if (popGames.isEmpty()){
-			for (int i = 0; i < num; i++){
-				popGames.add(Game.findById(i))
-			}
 		}
 		//popGames = popGames.sort{ a,b -> a.gameName <=> b.gameName}
 		if (params.boolean('renderXML')){
