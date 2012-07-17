@@ -52,19 +52,14 @@
 	margin: 2em 3em 1.25em 14em;
 }
 
-#latest-scores {
-	clear: both;
-}
-
-#latest-scores hr {
-	margin: 1em 1em 0em 1em;
+#latestAJAX hr {
+	margin: 1em 1em 0.5em 1em;
 	color: #e6e6e6;
 }
 
 #latest-scores iframe {
 	width: 96%;
-	-moz-box-shadow: 0 0 0.3em #5B5B5B; -webkit-box-shadow : 0 0 0.3em
-	#5B5B5B;
+	-moz-box-shadow: 0 0 0.3em #5B5B5B;
 	box-shadow: 0 0 0.3em #5B5B5B;
 	margin-top: 1em;
 	margin-left: 2%;
@@ -98,10 +93,10 @@ p {
 
 	function refresh() {
 		xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("GET", "score/testLatest", false);
+		xmlhttp.open("GET", "score/latestAJAX", false);
 		xmlhttp.send();
-		if(document.getElementById('test').innerHTML != xmlhttp.responseText){
-			document.getElementById('test').innerHTML = xmlhttp.responseText;
+		if(document.getElementById('latestAJAX').innerHTML != xmlhttp.responseText){
+			document.getElementById('latestAJAX').innerHTML = xmlhttp.responseText;
 			document.title = ;
 		}
 	}
@@ -158,6 +153,6 @@ p {
 				different machines. Battle it out for the high score!</p>
 		</div>
 	</div>
-	<div id="test"><g:render template="/score/latest"/></div>
+	<div id="latestAJAX"><hr><g:render template="/score/latest"/></div>
 </body>
 </html>

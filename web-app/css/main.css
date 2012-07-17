@@ -78,7 +78,7 @@ h1 {
 	font-weight: bold;
 	font-size: 1.5em;
 	text-align: left;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 }
 
 h1.center {
@@ -399,8 +399,13 @@ input:invalid:focus,select:invalid:focus,textarea:invalid:focus {
 table {
 	border-top: 1px solid #DFDFDF;
 	border-collapse: collapse;
-	width: 100%;
+	width: 96%;
+	margin-left: 2%;
 	margin-bottom: 1em;
+	margin-top: 0.5em;
+	box-shadow: 0 0 0.3em #5B5B5B;
+	-moz-box-shadow: 0 0 0.3em #5B5B5B;
+	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
 }
 
 tr {
