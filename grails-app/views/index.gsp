@@ -151,7 +151,7 @@ p {
 				games like Galaga and Airwolf and compete with your friends across
 				different machines. Battle it out for the high score!</p>
 		</div>
-	</div><hr>
-	<div id="latestAJAX"><g:render template="/score/latest"/></div>
+	</div>
+	<div id="latestAJAX"><hr><g:render template="/score/latest"/></div>
 </body>
 </html>

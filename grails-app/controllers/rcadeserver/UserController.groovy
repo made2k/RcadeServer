@@ -132,7 +132,7 @@ class UserController {
 
 		try {
 			userInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
+			flash.message = message(code: 'generic.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {

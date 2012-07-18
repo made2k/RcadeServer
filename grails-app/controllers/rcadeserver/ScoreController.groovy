@@ -174,7 +174,7 @@ class ScoreController {
 
 		try {
 			scoreInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'score.label', default: 'Score'), params.id])
+			flash.message = message(code: 'generic.deleted.message', args: [message(code: 'score.label', default: 'Score'), params.id])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {

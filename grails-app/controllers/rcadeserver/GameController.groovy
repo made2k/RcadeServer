@@ -285,7 +285,7 @@ class GameController {
 
 		try {
 			gameInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'game.label', default: 'Game'), params.id])
+			flash.message = message(code: 'generic.deleted.message', args: [message(code: 'game.label', default: 'Game'), params.id])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {
