@@ -3,7 +3,8 @@
 <!doctype html>
 <html>
 <head>
-<script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
 	function toggle(source)
 	{
 		checkboxes = document.getElementsByName('batch');

@@ -53,17 +53,8 @@
 }
 
 #latestAJAX hr {
-	margin: 1em 1em 0.5em 1em;
+	margin: 0.5em 1em 0.5em 1em;
 	color: #e6e6e6;
-}
-
-#latest-scores iframe {
-	width: 96%;
-	-moz-box-shadow: 0 0 0.3em #5B5B5B;
-	box-shadow: 0 0 0.3em #5B5B5B;
-	margin-top: 1em;
-	margin-left: 2%;
-	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
 }
 
 h2 {
@@ -152,6 +143,8 @@ p {
 				different machines. Battle it out for the high score!</p>
 		</div>
 	</div>
-	<div id="latestAJAX"><hr><g:render template="/score/latest"/></div>
+	<div id="latestAJAX">
+		<g:render template="/score/latest"/>
+	</div>
 </body>
 </html>

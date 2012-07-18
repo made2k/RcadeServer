@@ -46,7 +46,7 @@ body {
 	/* prevents box-shadow causing a horizontal scrollbar in firefox when viewport < 960px wide */
 	   -moz-box-shadow: 0 0 0.3em #5B5B5B;
 	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
-	        box-shadow: 0 0 0.3em #5B5B5B;
+	        box-shadow: 0 0 0.7em #5B5B5B;
 }
 
 #RcadeLogo {
