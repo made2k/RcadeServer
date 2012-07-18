@@ -12,8 +12,15 @@ $(document).ready(function()
 		alert("jquery working");
 		$("[name='batch']").prop("checked", $("[name='batch-all']").prop("checked"));
 	});
-	$("button").click(function(){
-		$("[name='batch']:checked").parent().parent().fadeOut("slow");	
+	$("button").click(function()
+	{
+		$("[name='batch']:checked").parent().parent().fadeOut("slow");
+		str = "Score IDs selected:" + "\n"
+		$("[name='batch']:checked").each(function(i)
+		{
+			str += this.value + "\n"
+		});
+		alert(str)
 	});
 });
 </script>
@@ -67,7 +74,7 @@ $(document).ready(function()
 			<tbody>
 				<g:each in="${scoreInstanceList}" status="i" var="scoreInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-						<td><input type="checkbox" name="batch" value="${i}"></td>
+						<td><input type="checkbox" name="batch" value="${scoreInstance.id}"></td>
 						<td><g:link action="show" id="${scoreInstance.id}">
 								${fieldValue(bean: scoreInstance, field: "player")}
 							</g:link></td>
