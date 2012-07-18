@@ -101,7 +101,7 @@ p {
 	}
 	
 	function startTimer() {
-		timerVar = setInterval(	function(){
+		timerVar = setInterval(	function() {
 			refresh()
 		}, 5000);
 	}

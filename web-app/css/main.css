@@ -615,3 +615,7 @@ a.skip {
 #loginHeader a {
 	color: #55bf43;
 }
+
+#batch-buttons {
+	padding: 0 1em 1em 1em;
+}
