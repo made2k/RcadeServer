@@ -3,48 +3,19 @@
 <!doctype html>
 <html>
 <head>
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript">
-	function toggle(source)
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+$(document).ready(function()
+{
+	$("[name='batch-all']").click(function()
 	{
-		checkboxes = document.getElementsByName('batch');
-		alert(checkboxes.length);
-		for each(var checkbox in checkboxes)
-			checkbox.checked = source.checked;
-	}
-	
-	function getSelected(opt)
-	{
-	    var selected = new Array();
-	    var index = 0;
-	    for (var intLoop = 0; intLoop < opt.length; intLoop++)
-	    {
-			if ((opt[intLoop].selected) || (opt[intLoop].checked))
-			{
-				index = selected.length;
-				selected[index] = new Object;
-				selected[index].value = opt[intLoop].value;
-				selected[index].index = intLoop;
-			}
-	    }
-	    return selected;
-	}
-	
-	function outputSelected()
-	{
-		checkboxes = document.getElementsByName('batch');
-		var selectedRows = checkboxes.length + "checkboxes\n";
-		var count = 0;
-		for each (var checkbox in checkboxes)
-		{
-			if (checkbox.checked)
-			{
-				selectedRows += "Checkbox " + count + ": " + checkbox.value + "\n";
-			}
-			count += 1;
-		}			
-		alert("Selected Items:\n" + selectedRows);
-	}
+		alert("jquery working");
+		$("[name='batch']").prop("checked", $("[name='batch-all']").prop("checked"));
+	});
+	$("button").click(function(){
+		$("[name='batch']:checked").parent().parent().fadeOut("slow");	
+	});
+});
 </script>
 <meta name="layout" content="main">
 <g:set var="entityName"
@@ -78,7 +49,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th class="nohov"><input type="checkbox" name="batch-all" onclick="toggle(this)"></th>		
+					<th class="nohov"><input type="checkbox" name="batch-all"></th>		
 					<g:sortableColumn property="player"
 					title="${message(code: 'player.name.label', default: 'Player') }" />
 					<g:sortableColumn property="score"
@@ -119,7 +90,7 @@
 		</table>
 		</form>
 		<div id="batch-buttons">
-			<button id="delete" onclick="outputSelected()">Test</button>
+			<button id="delete">Test</button>
 		</div>
 		<div class="pagination">
 			<g:if test="${scoreInstanceTotal <= params.max}">
