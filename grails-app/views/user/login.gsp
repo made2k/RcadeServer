@@ -18,7 +18,7 @@
 				${flash.message}
 			</div>
 		</g:if>
-		<h1>Login</h1> 
+		<h1>Welcome</h1> 
 
     <g:form action="authenticate" method="post" > 
       <div class="dialog"> 
@@ -48,7 +48,7 @@
       </div> 
       <div class="buttons"> 
         <span class="button"> 
-          <input type="submit" value="Login" /> 
+          <input type="submit" value="Log In" /> 
         </span> 
       </div> 
     </g:form> 

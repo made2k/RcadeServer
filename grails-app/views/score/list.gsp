@@ -7,9 +7,12 @@
 <script>
 $(document).ready(function()
 {
+	$("[type='checkbox']").each(function(i)
+	{
+		this.checked = false;
+	});
 	$("[name='batch-all']").click(function()
 	{
-		alert("jquery working");
 		$("[name='batch']").prop("checked", $("[name='batch-all']").prop("checked"));
 	});
 	$("button").click(function()
@@ -30,8 +33,9 @@ $(document).ready(function()
 					//alert("Error: " + error);
 				}
 			});
+
 		});
-		alert(str)
+		alert(str);
 	});
 });
 </script>
@@ -67,7 +71,9 @@ $(document).ready(function()
 		<table>
 			<thead>
 				<tr>
-					<th class="nohov"><input type="checkbox" name="batch-all"></th>		
+					<g:if test="${session?.user?.isAdmin()}">
+						<th class="nohov"><input type="checkbox" name="batch-all"></th>
+					</g:if>
 					<g:sortableColumn property="player"
 					title="${message(code: 'player.name.label', default: 'Player') }" />
 					<g:sortableColumn property="score"
@@ -85,7 +91,9 @@ $(document).ready(function()
 			<tbody>
 				<g:each in="${scoreInstanceList}" status="i" var="scoreInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-						<td><input type="checkbox" name="batch" value="${scoreInstance.id}"></td>
+						<g:if test="${session?.user?.isAdmin() }">
+							<td><input type="checkbox" name="batch" value="${scoreInstance.id}"></td>
+						</g:if>
 						<td><g:link action="show" id="${scoreInstance.id}">
 								${fieldValue(bean: scoreInstance, field: "player")}
 							</g:link></td>
@@ -107,9 +115,11 @@ $(document).ready(function()
 			</tbody>
 		</table>
 		</form>
-		<div id="batch-buttons">
-			<button id="delete">Test</button>
-		</div>
+		<g:if test="${session?.user?.isAdmin() }">
+			<div id="batch-buttons">
+				<button id="delete">Test</button>
+			</div>
+		</g:if>
 		<div class="pagination">
 			<g:if test="${scoreInstanceTotal <= params.max}">
     			<span class="currentStep">1</span>
