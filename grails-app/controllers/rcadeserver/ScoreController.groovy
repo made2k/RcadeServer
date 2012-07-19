@@ -35,6 +35,7 @@ class ScoreController {
 		switch(request.method){
 			case "POST":
 				def score = new Score()
+				
 				score.score = new BigInteger(params.score)
 				score.arcadeName = params.arcadeName
 				score.cabinetID = params.cabinetID

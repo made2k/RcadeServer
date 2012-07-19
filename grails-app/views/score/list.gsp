@@ -15,10 +15,21 @@ $(document).ready(function()
 	$("button").click(function()
 	{
 		$("[name='batch']:checked").parent().parent().fadeOut("slow");
-		str = "Score IDs selected:" + "\n"
+		str = "Score IDs selected:" + "\n";
 		$("[name='batch']:checked").each(function(i)
 		{
 			str += this.value + "\n"
+			$.ajax({
+				url: "${request.contextPath}/rest/score/" + this.value,
+				type: "DELETE",
+				dataType: 'json',
+				success: function(data) {
+					alert("Data: " + data);
+				},
+				error: function(request, status, error) {
+					//alert("Error: " + error);
+				}
+			});
 		});
 		alert(str)
 	});
