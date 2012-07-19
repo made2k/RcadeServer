@@ -1,6 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html> 
 <head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+$(document).ready(function()
+{
+	$("#login").focus();
+});
+</script>
 <style>
 #l h1 {
 	margin: 0.5em;

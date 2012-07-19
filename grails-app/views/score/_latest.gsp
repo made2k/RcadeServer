@@ -1,9 +1,4 @@
-
 <%@ page import="rcadeserver.Score"%>
-	<hr>
-	<h1 id="LSheader" class="center">
-		Latest Scores
-	</h1>
 	<table>
 		<thead>
 			<tr class="nohov">

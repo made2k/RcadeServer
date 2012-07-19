@@ -52,7 +52,8 @@
 	margin: 2em 3em 1.25em 14em;
 }
 
-#latestAJAX hr {
+#wrapper hr {
+	clear: both;
 	margin: 0.5em 1em 0.5em 1em;
 	color: #e6e6e6;
 }
@@ -82,12 +83,18 @@ p {
 </style>
 <script>
 	function refresh() {
-		xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("GET", "score/latestAJAX", false);
-		xmlhttp.send();
-		if(document.getElementById('latestAJAX').innerHTML != xmlhttp.responseText){
-			document.getElementById('latestAJAX').innerHTML = xmlhttp.responseText;
-		}
+		$.ajax({
+			url: "${request.contextPath}/score/latestAJAX",
+			type: "GET",
+			success: function(data) {
+				if($('#latestAJAX').html() != data) {
+					$('#latestAJAX').fadeOut(150, function() {
+						$('#latestAJAX').html(data);
+					});
+					$('#latestAJAX').fadeIn(150);
+				}
+			}
+		});
 	}
 	
 	function startTimer() {
@@ -141,9 +148,11 @@ p {
 				games like Galaga and Airwolf and compete with your friends across
 				different machines. Battle it out for the high score!</p>
 		</div>
+		<hr>
 	</div>
-	<div id="latestAJAX">
-		<g:render template="/score/latest"/>
-	</div>
+	<h1 id="LSheader" class="center">
+		Latest Scores
+	</h1>
+	<div id="latestAJAX"><g:render template="/score/latest"/></div>
 </body>
 </html>
