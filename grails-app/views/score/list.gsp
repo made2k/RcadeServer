@@ -4,39 +4,11 @@
 <html>
 <head>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/batch-operations.js"></script>
 <script>
 $(document).ready(function()
 {
-	$("[type='checkbox']").each(function(i)
-	{
-		this.checked = false;
-	});
-	$("[name='batch-all']").click(function()
-	{
-		$("[name='batch']").prop("checked", $("[name='batch-all']").prop("checked"));
-	});
-	$("button").click(function()
-	{
-		$("[name='batch']:checked").parent().parent().fadeOut("slow");
-		str = "Score IDs selected:" + "\n";
-		$("[name='batch']:checked").each(function(i)
-		{
-			str += this.value + "\n"
-			$.ajax({
-				url: "${request.contextPath}/rest/score/" + this.value,
-				type: "DELETE",
-				dataType: 'json',
-				success: function(data) {
-					alert("Data: " + data);
-				},
-				error: function(request, status, error) {
-					//alert("Error: " + error);
-				}
-			});
-
-		});
-		//alert(str);
-	});
+	batch("${request.contextPath}", "${params.controller}");
 });
 </script>
 <meta name="layout" content="main">
@@ -117,7 +89,7 @@ $(document).ready(function()
 		</form>
 		<g:if test="${session?.user?.isAdmin() }">
 			<div id="batch-buttons">
-				<button id="delete">Test</button>
+				<button id="delete">Delete selected ${params.controller}s</button>
 			</div>
 		</g:if>
 		<div class="pagination">

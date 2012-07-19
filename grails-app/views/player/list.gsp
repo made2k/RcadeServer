@@ -3,6 +3,14 @@
 <!doctype html>
 <html>
 <head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/batch-operations.js"></script>
+<script>
+$(document).ready(function()
+{
+	batch("${request.contextPath}", "${params.controller}");
+});
+</script>
 <meta name="layout" content="main">
 <g:set var="entityName"
 	value="${message(code: 'player.label', default: 'Player')}" />
@@ -34,22 +42,22 @@
 		<table>
 			<thead>
 				<tr>
-
 					<!-- <g:sortableColumn property="playerID" title="${message(code: 'player.playerID.label', default: 'Player ID')}" /> -->
-
+					<g:if test="${session?.user?.isAdmin()}">
+						<th class="nohov"><input type="checkbox" name="batch-all"></th>
+					</g:if>
 					<g:sortableColumn property="name"
 						title="${message(code: 'player.name.label', default: 'Name')}" />
-
 					<th>Most Recent Score</th>
-
 				</tr>
 			</thead>
 			<tbody>
 				<g:each in="${playerInstanceList}" status="i" var="playerInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-
 						<!-- <td><g:link action="show" id="${playerInstance.id}">${fieldValue(bean: playerInstance, field: "playerID")}</g:link></td> -->
-
+						<g:if test="${session?.user?.isAdmin() }">
+							<td><input type="checkbox" name="batch" value="${playerInstance.id}"></td>
+						</g:if>
 						<td><g:link action="show" id="${playerInstance.id}">
 								${fieldValue(bean: playerInstance, field: "name")}
 							</g:link></td>
@@ -62,6 +70,11 @@
 				</g:each>
 			</tbody>
 		</table>
+		<g:if test="${session?.user?.isAdmin() }">
+			<div id="batch-buttons">
+				<button id="delete">Delete selected ${params.controller}s</button>
+			</div>
+		</g:if>
 		<div class="pagination">
     		<g:if test="${playerInstanceTotal <= params.max}">
     			<span class="currentStep">1</span>

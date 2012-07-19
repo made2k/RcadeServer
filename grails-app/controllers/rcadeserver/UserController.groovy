@@ -47,7 +47,23 @@ class UserController {
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
 	def index() {
-		redirect(action: "list", params: params)
+		switch(request.method){
+			case "DELETE":
+				if(params.userId){
+					def user = User.findById(params.userId)
+					if(user){
+						user.delete()
+						render "Successfully Deleted."
+					}else{
+						response.status = 404 //Not Found
+						render "${params.userId} not found."
+					}
+				}else{
+					response.status = 400 //Bad Request
+					render "DELETE request must include the user's ID\nExample: /rest/user/userId"
+				}
+				break
+		}
 	}
 
 	def list() {

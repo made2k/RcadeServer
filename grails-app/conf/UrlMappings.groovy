@@ -11,6 +11,7 @@ class UrlMappings {
 		"/game"(controller:"game", action:"list")
 		"/player"(controller:"player", action:"list")
 		"/score"(controller:"score", action:"list")
+		"/user"(controller:"user", action:"list")
 		"/game/post"(controller:"game", action:"yammer")
 		
 		"/rest/game/$romName?"(controller:"game", action:"index")
@@ -20,6 +21,7 @@ class UrlMappings {
 		"/rest/score/$scoreId?"(controller:"score", action:"index")
 		"/rest/game/$romName/highscore"(controller:"game", action:"highScoreList")
 		"/rest/connection/$ipAddress?"(controller:"connection", action:"index")
+		"/rest/user/$userId?"(controller:"user", action:"index")
 		"/"(view:"/index")
 		"500"(view:'/error')
 	}
