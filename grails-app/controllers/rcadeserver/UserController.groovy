@@ -82,7 +82,7 @@ class UserController {
 			return
 		}
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+		flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.login])
 		redirect(action: "show", id: userInstance.id)
 	}
 
@@ -147,8 +147,9 @@ class UserController {
 		}
 
 		try {
+			String userLogin = userInstance.login
 			userInstance.delete(flush: true)
-			flash.message = message(code: 'generic.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
+			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), userLogin])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {

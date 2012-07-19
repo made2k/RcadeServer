@@ -8,13 +8,18 @@
 <script>
 $(document).ready(function()
 {
-	$("[name='batch'][value='${session.user.id}']").each(function(i)
-	{
-		//alert("match: " + ${session.user.id});
-		this.disabled = true;
-	});
+	check();
 	batch("${request.contextPath}", "${params.controller}");
-	//alert("You are " + "${session.user.login}" + ", ID: " + "${session.user.id}");
+	$("[name='batch-all']").click(check)
+	
+	function check()
+	{
+		$("[type='checkbox'][value='${session.user.id}']").each(function(i)
+		{
+			this.disabled = true;
+			this.checked = false;
+		});
+	}
 });
 </script>
 <meta name="layout" content="main">
