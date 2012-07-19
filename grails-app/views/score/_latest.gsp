@@ -4,11 +4,6 @@
 	<h1 id="LSheader" class="center">
 		Latest Scores
 	</h1>
-	<g:if test="${flash.message}">
-		<div class="message" role="status">
-			${flash.message}
-		</div>
-	</g:if>
 	<table>
 		<thead>
 			<tr class="nohov">
