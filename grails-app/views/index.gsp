@@ -80,8 +80,7 @@ p {
 	}
 }
 </style>
-<script type="text/javascript">	
-
+<script>
 	function refresh() {
 		xmlhttp = new XMLHttpRequest();
 		xmlhttp.open("GET", "score/latestAJAX", false);
