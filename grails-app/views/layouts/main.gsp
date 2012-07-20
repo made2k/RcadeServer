@@ -7,6 +7,8 @@
 <html lang="en" class="no-js">
 <!--<![endif]-->
 <head>
+<script type="text/javascript" src="${request.contextPath}/js/apprise-1.5.min.js"></script>
+<link rel="stylesheet" href="${resource(dir: 'css', file: 'apprise.min.css')}" type="text/css" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>
 $(document).ready(function()

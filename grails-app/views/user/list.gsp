@@ -12,6 +12,7 @@ $(document).ready(function()
 	batch("${request.contextPath}", "${params.controller}");
 	$("[name='batch-all']").click(check)
 	
+	// Do not allow user to delete themselves
 	function check()
 	{
 		$("[type='checkbox'][value='${session.user.id}']").each(function(i)
@@ -54,7 +55,6 @@ $(document).ready(function()
 					<th class="nohov"><input type="checkbox" name="batch-all"></th>
 					<g:sortableColumn property="login"
 						title="${message(code: 'user.login.label', default: 'Login')}" />
-
 					<g:sortableColumn property="role"
 						title="${message(code: 'user.role.label', default: 'Role')}" />
 				</tr>
@@ -69,7 +69,6 @@ $(document).ready(function()
 						<td>
 							${fieldValue(bean: userInstance, field: "role")}
 						</td>
-
 					</tr>
 				</g:each>
 			</tbody>
