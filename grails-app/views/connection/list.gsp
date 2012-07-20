@@ -80,7 +80,7 @@ $(document).ready(function()
 				<span class="currentStep">1</span>
 			</g:if>
 			<g:else>
-				<g:paginate total="${gameInstanceTotal}" />
+				<g:paginate total="${connectionInstanceTotal}" />
 			</g:else>
 		</div>
 	</div>

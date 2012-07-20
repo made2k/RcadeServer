@@ -142,10 +142,9 @@ p {
 
 		<div id="page-body" role="main">
 			<h1>Welcome to Rcade</h1>
-			<p>Rcade is a front-end interface for the MAME emulator. Rcade is
-				built off of Wah!Cade and adds networking and persistent high scores
-				for all of your favorite games. With Rcade you are able to play
-				games like Galaga and Airwolf and compete with your friends across
+			<p>Rcade is a front-end for the MAME emulator built off of Wah!Cade.
+				It adds networking and persistent high scores for various classic
+				arcade games, and allows you to compete with your friends across
 				different machines. Battle it out for the high score!</p>
 		</div>
 		<hr>

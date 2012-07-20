@@ -26,7 +26,7 @@ function batch(path, controller)
 		{
 			if(r)
 			{
-				$("[name='batch']:checked").parent().parent().fadeOut("slow");
+				$("[name='batch']:checked").parent().parent().fadeOut("fast");
 				$("[name='batch']:checked").each(function(i)
 				{
 					$.ajax({
@@ -43,12 +43,18 @@ function batch(path, controller)
 						}
 					});
 				});
-				$("[name='batch-all']").prop("checked", false);
+				if($("[name='batch-all']").is(":checked"))
+				{
+					$("[name='batch-all']").prop("checked", false);
+					$("button, #delete").fadeOut("fast");
+					location.reload();
+				}
 			}
 			else
 			{
 				// Do nothing
 			}
+			numBoxes = $("[name='batch']:enabled").size();
 		});
 	});
 	// Show the delete button only when there are checkboxes selected
@@ -57,7 +63,7 @@ function batch(path, controller)
 		numChecked = $("[name='batch']:enabled:checked").size();
 		if(numChecked > 0)
 		{
-			$("button, #delete").slideDown(300);
+			$("button, #delete").fadeIn(300);
 			if(numChecked == numBoxes)
 			{
 				$("[name='batch-all']").prop("checked", true);

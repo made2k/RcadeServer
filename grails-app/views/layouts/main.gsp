@@ -13,11 +13,10 @@
 <script>
 $(document).ready(function()
 {
-	if("${flash.message}" != "")
-	{
-		$(".message").hide();
-		$(".message").fadeIn("slow").delay(5000).slideUp("slow");
-	}
+	$(".message").hide();
+	$(".message").fadeIn("slow").delay(5000).slideUp("slow");
+	$(".errors").hide();
+	$(".errors").fadeIn("slow");
 });
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

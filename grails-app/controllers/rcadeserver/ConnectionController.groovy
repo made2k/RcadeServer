@@ -42,7 +42,6 @@ class ConnectionController {
 
 			case "DELETE":
 				if(params.ipAddress){
-					System.out.println(params.ipAddress);
 					def connection = Connection.findByIpAddress(params.ipAddress)
 					if(connection){
 						connection.delete()
@@ -53,7 +52,6 @@ class ConnectionController {
 					}
 				}
 				else if(params.connectionId){
-					System.out.println(params.connectionId);
 					def connection = Connection.findById(params.connectionId)
 					if(connection){
 						connection.delete()
