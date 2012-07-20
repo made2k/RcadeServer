@@ -1,13 +1,13 @@
 function batch(path, controller)
-{	
-	// Clear all checkboxes on page load
+{
+	// Get number of checkboxes on page
+	var numBoxes = $("[name='batch']:enabled").size();
+	// Clear all checkboxes on page load and hide the delete button
 	$("[type='checkbox']").each(function(i)
 	{
 		this.checked = false;
+		$("button, #delete").hide();
 	});
-	
-	alert("Loaded batch-operations.js")
-	
 	// "Select all" checkbox logic
 	$("[name='batch-all']").click(function()
 	{
@@ -45,5 +45,27 @@ function batch(path, controller)
 				// Do nothing
 			}
 		});
+	});
+	// Show the delete button only when there are checkboxes selected
+	$("[type='checkbox']").click(function()
+	{
+		numChecked = $("[name='batch']:enabled:checked").size();
+		if(numChecked > 0)
+		{
+			$("button, #delete").slideDown(300);
+			if(numChecked == numBoxes)
+			{
+				$("[name='batch-all']").prop("checked", true);
+			}
+			else
+			{
+				$("[name='batch-all']").prop("checked", false);
+			}
+		}
+		else
+		{
+			$("button, #delete").slideUp(300);
+			$("[name='batch-all']").prop("checked", false);
+		}
 	});
 }
