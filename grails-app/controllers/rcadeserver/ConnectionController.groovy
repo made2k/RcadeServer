@@ -42,6 +42,7 @@ class ConnectionController {
 
 			case "DELETE":
 				if(params.ipAddress){
+					System.out.println(params.ipAddress);
 					def connection = Connection.findByIpAddress(params.ipAddress)
 					if(connection){
 						connection.delete()
@@ -50,7 +51,19 @@ class ConnectionController {
 						response.status = 404 //Not Found
 						render "${params.ipAddress} not found."
 					}
-				}else{
+				}
+				else if(params.connectionId){
+					System.out.println(params.connectionId);
+					def connection = Connection.findById(params.connectionId)
+					if(connection){
+						connection.delete()
+						render "Successfully Deleted."
+					}else{
+						response.status = 404 //Not Found
+						render "${params.ipAddress} not found."
+					}
+				}
+				else{
 					response.status = 400 //Bad Request
 					render "DELETE request must include the connection's IP\nExample: /rest/connection/\"127.0.0.1\""
 				}
@@ -140,7 +153,7 @@ class ConnectionController {
 
 		try {
 			connectionInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'connection.label', default: 'Connection'), params.id])
+			flash.message = message(code: 'generic.deleted.message', args: [message(code: 'connection.label', default: 'Connection'), params.id])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {

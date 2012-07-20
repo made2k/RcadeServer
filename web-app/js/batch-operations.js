@@ -1,7 +1,12 @@
 function batch(path, controller)
 {
+	alert("Path: " + path + "\n" + "Controller: " + controller);
 	// Get number of checkboxes on page
 	var numBoxes = $("[name='batch']:enabled").size();
+	if(numBoxes == 0)
+	{
+		$("[name='batch-all']").prop("disabled", true);
+	}
 	// Clear all checkboxes on page load and hide the delete button
 	$("[type='checkbox']").each(function(i)
 	{
@@ -39,6 +44,7 @@ function batch(path, controller)
 						}
 					});
 				});
+				$("[name='batch-all']").prop("checked", false);
 			}
 			else
 			{
