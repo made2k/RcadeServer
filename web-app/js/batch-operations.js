@@ -1,6 +1,5 @@
 function batch(path, controller)
 {
-	alert("Path: " + path + "\n" + "Controller: " + controller);
 	// Get number of checkboxes on page
 	var numBoxes = $("[name='batch']:enabled").size();
 	if(numBoxes == 0)
