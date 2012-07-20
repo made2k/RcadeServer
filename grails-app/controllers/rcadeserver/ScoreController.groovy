@@ -109,7 +109,7 @@ class ScoreController {
 			return
 		}
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'score.label', default: 'Score'), scoreInstance.id])
+		flash.message = message(code: 'generic.created.message', args: [message(code: 'score.label', default: 'Score'), scoreInstance.id])
 		redirect(action: "show", id: scoreInstance.id)
 	}
 

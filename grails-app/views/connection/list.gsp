@@ -13,7 +13,7 @@ $(document).ready(function()
 </script>
 <meta name="layout" content="main">
 <g:set var="entityName" value="${message(code: 'connection.label', default: 'Connection')}" />
-<title><g:message code="default.list.label" args="[entityName]" /></title>
+<title><g:message code="generic.list.label" args="[entityName]" /></title>
 </head>
 <body>
 	<a href="#list-connection" class="skip" tabindex="-1"><g:message
@@ -55,7 +55,7 @@ $(document).ready(function()
 					var="connectionInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 						<g:if test="${session?.user?.isAdmin() }">
-							<td><input type="checkbox" name="batch" value="${gameInstance.id}"></td>
+							<td><input type="checkbox" name="batch" value="${connectionInstance.id}"></td>
 						</g:if>
 						<td><g:link action="show" id="${connectionInstance.id}">
 								${fieldValue(bean: connectionInstance, field: "ipAddress")}
@@ -76,7 +76,7 @@ $(document).ready(function()
 			</div>
 		</g:if>
 		<div class="pagination">
-			<g:if test="${gameInstanceTotal <= params.max}">
+			<g:if test="${connectionInstanceTotal <= params.max}">
 				<span class="currentStep">1</span>
 			</g:if>
 			<g:else>
