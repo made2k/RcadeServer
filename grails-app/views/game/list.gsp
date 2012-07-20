@@ -23,12 +23,11 @@ $(document).ready(function()
 		<ul>
 			<li><a class="home" href="${createLink(uri: '/')}"><g:message
 						code="default.home.label" /></a></li>
-			<g:if test="${session?.user?.isAdmin() }">		
-			<li><g:link class="create" action="create">
-					<g:message code="default.new.label" args="[entityName]" />
-				</g:link></li>
-				</g:if>
-				
+			<g:if test="${session?.user?.isAdmin() }">
+				<li><g:link class="create" action="create">
+						<g:message code="default.new.label" args="[entityName]" />
+					</g:link></li>
+			</g:if>
 		</ul>
 	</div>
 	<div id="list-game" class="content scaffold-list" role="main">
@@ -49,11 +48,9 @@ $(document).ready(function()
 					</g:if>
 					<g:sortableColumn property="gameName"
 						title="${message(code: 'game.gameName.label', default: 'Game Name')}" />
-
 					<!-- <g:sortableColumn property="scores" title="${message(code: 'game.scores.label', default: 'High Score')}" /> -->
 					<th>High Score</th>
 					<!-- non sortable column -->
-
 				</tr>
 			</thead>
 			<tbody>
@@ -84,15 +81,18 @@ $(document).ready(function()
 		</table>
 		<g:if test="${session?.user?.isAdmin() }">
 			<div id="batch-buttons">
-				<button id="delete">Delete selected ${params.controller}s</button>
+				<button id="delete">
+					Delete selected
+					${params.controller}s
+				</button>
 			</div>
 		</g:if>
 		<div class="pagination">
 			<g:if test="${gameInstanceTotal <= params.max}">
-    			<span class="currentStep">1</span>
-    		</g:if>
-    		<g:else>
-				<g:paginate total="${gameInstanceTotal}"/>
+				<span class="currentStep">1</span>
+			</g:if>
+			<g:else>
+				<g:paginate total="${gameInstanceTotal}" />
 			</g:else>
 		</div>
 	</div>
