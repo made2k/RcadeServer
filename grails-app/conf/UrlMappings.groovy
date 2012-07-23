@@ -20,6 +20,7 @@ class UrlMappings {
 		"/rest/score/$scoreId?"(controller:"score", action:"index")
 		"/rest/game/$romName/highscore"(controller:"game", action:"highScoreList")
 		"/rest/connection/$ipAddress?"(controller:"connection", action:"index")
+		"/rest/connection/ping/"(controller:"connection", action:"setActive")
 		"/"(view:"/index")
 		"500"(view:'/error')
 	}

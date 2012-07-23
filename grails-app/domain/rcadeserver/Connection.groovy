@@ -9,4 +9,14 @@ class Connection {
 	
 	String ipAddress
 	String port
+	
+	static transients = ['active']
+	
+	Boolean active
+	
+	void setActive(Boolean bool){
+		println "Setting Active to " + bool
+		active = bool
+		println "Active is currently " + active + " for " + ipAddress
+	}
 }
