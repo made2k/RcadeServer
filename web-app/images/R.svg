@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="190"
+   height="190"
+   id="svg2933">
+  <defs
+     id="defs2935">
+    <filter
+       color-interpolation-filters="sRGB"
+       id="filter3868">
+      <feGaussianBlur
+         stdDeviation="1.5"
+         result="result6"
+         id="feGaussianBlur3870" />
+      <feComposite
+         in2="result6"
+         operator="atop"
+         in="SourceGraphic"
+         result="result8"
+         id="feComposite3872" />
+      <feComposite
+         in2="SourceAlpha"
+         operator="atop"
+         in="result8"
+         result="result9"
+         id="feComposite3874" />
+    </filter>
+  </defs>
+  <g
+     transform="translate(-207.14973,-263.66655)"
+     id="layer1">
+    <path
+       d="m -784.77125,944.98048 7.424,0 0,-12.672 9.088,0 8.384,12.672 9.344,0 -10.048,-14.336 c 2.7733,-0.85332 5.03463,-2.36799 6.784,-4.544 1.74929,-2.17598 2.62396,-4.69331 2.624,-7.552 -4e-5,-4.01064 -1.3227,-7.29597 -3.968,-9.856 -2.6027,-2.60263 -6.10136,-3.90396 -10.496,-3.904 l -19.136,0 0,20.48 -4.8,0 0,7.04 4.8,0 0,12.672 m 7.424,-33.152 11.136,0 c 2.47464,3e-5 4.35197,0.64003 5.632,1.92 1.32264,1.28003 1.98397,2.88003 1.984,4.8 -3e-5,1.92002 -0.66136,3.52002 -1.984,4.8 -1.28003,1.28002 -3.15736,1.92002 -5.632,1.92 l -11.136,0 0,-13.44"
+       transform="matrix(2.98027,0,0,2.98027,2594.9606,-2398.329)"
+       id="path3747"
+       style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#72c066;fill-opacity:1;stroke:none;display:inline;filter:url(#filter3868);font-family:Insignia;-inkscape-font-specification:Balker" />
+  </g>
+</svg>

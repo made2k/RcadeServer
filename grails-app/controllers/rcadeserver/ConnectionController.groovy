@@ -52,7 +52,18 @@ class ConnectionController {
 						response.status = 404 //Not Found
 						render "${params.ipAddress} not found."
 					}
-				}else{
+				}
+				else if(params.connectionId){
+					def connection = Connection.findById(params.connectionId)
+					if(connection){
+						connection.delete()
+						render "Successfully Deleted."
+					}else{
+						response.status = 404 //Not Found
+						render "${params.ipAddress} not found."
+					}
+				}
+				else{
 					response.status = 400 //Bad Request
 					render "DELETE request must include the connection's IP\nExample: /rest/connection/\"127.0.0.1\""
 				}
@@ -73,91 +84,91 @@ class ConnectionController {
 
 	def list() {
 		params.max = Math.min(params.max ? params.int('max') : 10, 100)
-		[connectionsInstanceList: Connection.list(params), connectionsInstanceTotal: Connection.count()]
+		[connectionInstanceList: Connection.list(params), connectionInstanceTotal: Connection.count()]
 	}
 
 	def create() {
-		[connectionsInstance: new Connection(params)]
+		[connectionInstance: new Connection(params)]
 	}
 
 	def save() {
-		def connectionsInstance = new Connection(params)
-		if (!connectionsInstance.save(flush: true)) {
-			render(view: "create", model: [connectionsInstance: connectionsInstance])
+		def connectionInstance = new Connection(params)
+		if (!connectionInstance.save(flush: true)) {
+			render(view: "create", model: [connectionInstance: connectionInstance])
 			return
 		}
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'connections.label', default: 'Connections'), connectionsInstance.id])
-		redirect(action: "show", id: connectionsInstance.id)
+		flash.message = message(code: 'generic.created.message', args: [message(code: 'connection.label', default: 'Connection'), connectionInstance.id])
+		redirect(action: "show", id: connectionInstance.id)
 	}
 
 	def show() {
-		def connectionsInstance = Connection.get(params.id)
-		if (!connectionsInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'connections.label', default: 'Connections'), params.id])
+		def connectionInstance = Connection.get(params.id)
+		if (!connectionInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'connection.label', default: 'Connection'), params.id])
 			redirect(action: "list")
 			return
 		}
 
-		[connectionsInstance: connectionsInstance]
+		[connectionInstance: connectionInstance]
 	}
 
 	def edit() {
-		def connectionsInstance = Connection.get(params.id)
-		if (!connectionsInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'connections.label', default: 'Connections'), params.id])
+		def connectionInstance = Connection.get(params.id)
+		if (!connectionInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'connection.label', default: 'Connection'), params.id])
 			redirect(action: "list")
 			return
 		}
 
-		[connectionsInstance: connectionsInstance]
+		[connectionInstance: connectionInstance]
 	}
 
 	def update() {
-		def connectionsInstance = Connection.get(params.id)
-		if (!connectionsInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'connections.label', default: 'Connections'), params.id])
+		def connectionInstance = Connection.get(params.id)
+		if (!connectionInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'connection.label', default: 'Connection'), params.id])
 			redirect(action: "list")
 			return
 		}
 
 		if (params.version) {
 			def version = params.version.toLong()
-			if (connectionsInstance.version > version) {
-				connectionsInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-						[message(code: 'connections.label', default: 'Connections')] as Object[],
-						"Another user has updated this Connections while you were editing")
-				render(view: "edit", model: [connectionsInstance: connectionsInstance])
+			if (connectionInstance.version > version) {
+				connectionInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+						[message(code: 'connection.label', default: 'Connectios')] as Object[],
+						"Another user has updated this Connection while you were editing")
+				render(view: "edit", model: [connectionInstance: connectionInstance])
 				return
 			}
 		}
 
-		connectionsInstance.properties = params
+		connectionInstance.properties = params
 
-		if (!connectionsInstance.save(flush: true)) {
-			render(view: "edit", model: [connectionsInstance: connectionsInstance])
+		if (!connectionInstance.save(flush: true)) {
+			render(view: "edit", model: [connectionInstance: connectionInstance])
 			return
 		}
 
-		flash.message = message(code: 'default.updated.message', args: [message(code: 'connections.label', default: 'Connections'), connectionsInstance.id])
-		redirect(action: "show", id: connectionsInstance.id)
+		flash.message = message(code: 'default.updated.message', args: [message(code: 'connection.label', default: 'Connection'), connectionInstance.id])
+		redirect(action: "show", id: connectionInstance.id)
 	}
 
 	def delete() {
-		def connectionsInstance = Connection.get(params.id)
-		if (!connectionsInstance) {
-			flash.message = message(code: 'default.not.found.message', args: [message(code: 'connections.label', default: 'Connections'), params.id])
+		def connectionInstance = Connection.get(params.id)
+		if (!connectionInstance) {
+			flash.message = message(code: 'default.not.found.message', args: [message(code: 'connection.label', default: 'Connection'), params.id])
 			redirect(action: "list")
 			return
 		}
 
 		try {
-			connectionsInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'connections.label', default: 'Connections'), params.id])
+			connectionInstance.delete(flush: true)
+			flash.message = message(code: 'generic.deleted.message', args: [message(code: 'connection.label', default: 'Connection'), params.id])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {
-			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'connections.label', default: 'Connections'), params.id])
+			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'connection.label', default: 'Connection'), params.id])
 			redirect(action: "show", id: params.id)
 		}
 	}

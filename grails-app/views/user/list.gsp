@@ -3,6 +3,26 @@
 <!doctype html>
 <html>
 <head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/batch-operations.js"></script>
+<script>
+$(document).ready(function()
+{
+	check();
+	batch("${request.contextPath}", "${params.controller}");
+	$("[name='batch-all']").click(check)
+	
+	// Do not allow user to delete themselves
+	function check()
+	{
+		$("[type='checkbox'][value='${session.user.id}']").each(function(i)
+		{
+			this.disabled = true;
+			this.checked = false;
+		});
+	}
+});
+</script>
 <meta name="layout" content="main">
 <g:set var="entityName"
 	value="${message(code: 'user.label', default: 'User')}" />
@@ -32,31 +52,30 @@
 		<table>
 			<thead>
 				<tr>
-
+					<th class="nohov"><input type="checkbox" name="batch-all"></th>
 					<g:sortableColumn property="login"
 						title="${message(code: 'user.login.label', default: 'Login')}" />
-
 					<g:sortableColumn property="role"
 						title="${message(code: 'user.role.label', default: 'Role')}" />
-
 				</tr>
 			</thead>
 			<tbody>
 				<g:each in="${userInstanceList}" status="i" var="userInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-
+						<td><input type="checkbox" name="batch" value="${userInstance.id}"></td>
 						<td><g:link action="show" id="${userInstance.id}">
 								${fieldValue(bean: userInstance, field: "login")}
 							</g:link></td>
-
 						<td>
 							${fieldValue(bean: userInstance, field: "role")}
 						</td>
-
 					</tr>
 				</g:each>
 			</tbody>
 		</table>
+		<div id="batch-buttons">
+			<button id="delete">Delete selected ${params.controller}s</button>
+		</div>
 		<div class="pagination">
 			<g:if test="${userInstanceTotal <= params.max}">
     			<span class="currentStep">1</span>

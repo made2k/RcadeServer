@@ -1,5 +1,5 @@
 
-<%@ page import="rcadeserver.Game"%>
+<%@ page import="rcadeserver.Connection"%>
 <!doctype html>
 <html>
 <head>
@@ -12,12 +12,11 @@ $(document).ready(function()
 });
 </script>
 <meta name="layout" content="main">
-<g:set var="entityName"
-	value="${message(code: 'game.label', default: 'Game')}" />
-<title><g:message code="default.list.label" args="[entityName]" /></title>
+<g:set var="entityName" value="${message(code: 'connection.label', default: 'Connection')}" />
+<title><g:message code="generic.list.label" args="[entityName]" /></title>
 </head>
 <body>
-	<a href="#list-game" class="skip" tabindex="-1"><g:message
+	<a href="#list-connection" class="skip" tabindex="-1"><g:message
 			code="default.link.skip.label" default="Skip to content&hellip;" /></a>
 	<div class="nav" role="navigation">
 		<ul>
@@ -30,7 +29,7 @@ $(document).ready(function()
 			</g:if>
 		</ul>
 	</div>
-	<div id="list-game" class="content scaffold-list" role="main">
+	<div id="list-connection" class="content scaffold-list" role="main">
 		<h1>
 			<g:message code="default.list.label" args="[entityName]" />
 		</h1>
@@ -42,39 +41,28 @@ $(document).ready(function()
 		<table>
 			<thead>
 				<tr>
-					<!-- <g:sortableColumn property="romName" title="${message(code: 'game.romName.label', default: 'Rom Name')}" />  -->
 					<g:if test="${session?.user?.isAdmin()}">
 						<th class="nohov"><input type="checkbox" name="batch-all"></th>
 					</g:if>
-					<g:sortableColumn property="gameName"
-						title="${message(code: 'game.gameName.label', default: 'Game Name')}" />
-					<!-- <g:sortableColumn property="scores" title="${message(code: 'game.scores.label', default: 'High Score')}" /> -->
-					<th>High Score</th>
-					<!-- non sortable column -->
+					<g:sortableColumn property="ipAddress"
+						title="${message(code: 'connection.ipAddress.label', default: 'Ip Address')}" />
+					<g:sortableColumn property="port"
+						title="${message(code: 'connection.port.label', default: 'Port')}" />
 				</tr>
 			</thead>
 			<tbody>
-				<g:each in="${gameInstanceList}" status="i" var="gameInstance">
+				<g:each in="${connectionInstanceList}" status="i"
+					var="connectionInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-						<!-- <td><g:link action="show" id="${gameInstance.id}">${fieldValue(bean: gameInstance, field: "romName")}</g:link></td>  -->
 						<g:if test="${session?.user?.isAdmin() }">
-							<td><input type="checkbox" name="batch" value="${gameInstance.id}"></td>
+							<td><input type="checkbox" name="batch" value="${connectionInstance.id}"></td>
 						</g:if>
-						<td><g:link action="show" id="${gameInstance.id}">
-								${fieldValue(bean: gameInstance, field: "gameName")}
+						<td><g:link action="show" id="${connectionInstance.id}">
+								${fieldValue(bean: connectionInstance, field: "ipAddress")}
 							</g:link></td>
-						<g:if test="${gameInstance?.scores }">
-							<td><g:link controller="score" action="show"
-									id="${gameInstance.getHighScore().id}">
-									${gameInstance.getHighScoreString()}
-								</g:link></td>
-						</g:if>
-						<g:else>
-							<td>
-								${gameInstance.getHighScoreString()}
-							</td>
-						</g:else>
-
+						<td>
+							${fieldValue(bean: connectionInstance, field: "port")}
+						</td>
 					</tr>
 				</g:each>
 			</tbody>
@@ -88,11 +76,11 @@ $(document).ready(function()
 			</div>
 		</g:if>
 		<div class="pagination">
-			<g:if test="${gameInstanceTotal <= params.max}">
+			<g:if test="${connectionInstanceTotal <= params.max}">
 				<span class="currentStep">1</span>
 			</g:if>
 			<g:else>
-				<g:paginate total="${gameInstanceTotal}" />
+				<g:paginate total="${connectionInstanceTotal}" />
 			</g:else>
 		</div>
 	</div>

@@ -52,18 +52,10 @@
 	margin: 2em 3em 1.25em 14em;
 }
 
-#latestAJAX hr {
-	margin: 1em 1em 0.5em 1em;
+#wrapper hr {
+	clear: both;
+	margin: 0.5em 1em 0.5em 1em;
 	color: #e6e6e6;
-}
-
-#latest-scores iframe {
-	width: 96%;
-	-moz-box-shadow: 0 0 0.3em #5B5B5B;
-	box-shadow: 0 0 0.3em #5B5B5B;
-	margin-top: 1em;
-	margin-left: 2%;
-	-webkit-box-shadow: 0 0 0.3em #5B5B5B;
 }
 
 h2 {
@@ -89,20 +81,24 @@ p {
 	}
 }
 </style>
-<script type="text/javascript">	
-
+<script>
 	function refresh() {
-		xmlhttp = new XMLHttpRequest();
-		xmlhttp.open("GET", "score/latestAJAX", false);
-		xmlhttp.send();
-		if(document.getElementById('latestAJAX').innerHTML != xmlhttp.responseText){
-			document.getElementById('latestAJAX').innerHTML = xmlhttp.responseText;
-			document.title = ;
-		}
+		$.ajax({
+			url: "${request.contextPath}/score/latestAJAX",
+			type: "GET",
+			success: function(data) {
+				if($('#latestAJAX').html() != data) {
+					$('#latestAJAX').fadeOut(150, function() {
+						$('#latestAJAX').html(data);
+					});
+					$('#latestAJAX').fadeIn(150);
+				}
+			}
+		});
 	}
 	
 	function startTimer() {
-		timerVar = setInterval(	function(){
+		timerVar = setInterval(	function() {
 			refresh()
 		}, 5000);
 	}
@@ -146,13 +142,16 @@ p {
 
 		<div id="page-body" role="main">
 			<h1>Welcome to Rcade</h1>
-			<p>Rcade is a front-end interface for the MAME emulator. Rcade is
-				built off of Wah!Cade and adds networking and persistent high scores
-				for all of your favorite games. With Rcade you are able to play
-				games like Galaga and Airwolf and compete with your friends across
+			<p>Rcade is a front-end for the MAME emulator built off of Wah!Cade.
+				It adds networking and persistent high scores for various classic
+				arcade games, and allows you to compete with your friends across
 				different machines. Battle it out for the high score!</p>
 		</div>
+		<hr>
 	</div>
-	<div id="latestAJAX"><hr><g:render template="/score/latest"/></div>
+	<h1 id="LSheader" class="center">
+		Latest Scores
+	</h1>
+	<div id="latestAJAX"><g:render template="/score/latest"/></div>
 </body>
 </html>

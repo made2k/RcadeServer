@@ -3,6 +3,14 @@
 <!doctype html>
 <html>
 <head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/batch-operations.js"></script>
+<script>
+$(document).ready(function()
+{
+	batch("${request.contextPath}", "${params.controller}");
+});
+</script>
 <meta name="layout" content="main">
 <g:set var="entityName"
 	value="${message(code: 'score.label', default: 'Score')}" />
@@ -31,63 +39,59 @@
 				${flash.message}
 			</div>
 		</g:if>
+		<form id="batch-operation" name="batch-operation">
 		<table>
 			<thead>
 				<tr>
-
-					
-					
+					<g:if test="${session?.user?.isAdmin()}">
+						<th class="nohov"><input type="checkbox" name="batch-all"></th>
+					</g:if>
 					<g:sortableColumn property="player"
 					title="${message(code: 'player.name.label', default: 'Player') }" />
-
 					<g:sortableColumn property="score"
-						title="${message(code: 'score.score.label', default: 'Score')}" />
-
-					
+						title="${message(code: 'score.score.label', default: 'Score')}" />	
 					<g:sortableColumn property="game"
 					title="${message(code: 'score.game.label', default: 'Game') }" />
-
 					<g:sortableColumn property="cabinetID"
 						title="${message(code: 'score.cabinetID.label', default: 'Cabinet Name')}" />
-
 					<g:sortableColumn property="dateCreated"
 						title="${message(code: 'score.dateCreated.label', default: 'Date Played')}" />
-
 					<g:sortableColumn property="arcadeName"
 						title="${message(code: 'score.arcadeName.label', default: 'Arcade Name')}" />
-
 				</tr>
 			</thead>
 			<tbody>
 				<g:each in="${scoreInstanceList}" status="i" var="scoreInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-
+						<g:if test="${session?.user?.isAdmin() }">
+							<td><input type="checkbox" name="batch" value="${scoreInstance.id}"></td>
+						</g:if>
 						<td><g:link action="show" id="${scoreInstance.id}">
 								${fieldValue(bean: scoreInstance, field: "player")}
 							</g:link></td>
-
 						<td>
 							${fieldValue(bean: scoreInstance, field: "score")}
 						</td>
-
 						<td>
 							${fieldValue(bean: scoreInstance, field: "game")}
 						</td>
-
 						<td>
 							${fieldValue(bean: scoreInstance, field: "cabinetID")}
 						</td>
-
 						<td><g:formatDate date="${scoreInstance.dateCreated}" /></td>
-
 						<td>
 							${fieldValue(bean: scoreInstance, field: "arcadeName")}
 						</td>
-
 					</tr>
 				</g:each>
 			</tbody>
 		</table>
+		</form>
+		<g:if test="${session?.user?.isAdmin() }">
+			<div id="batch-buttons">
+				<button id="delete">Delete selected ${params.controller}s</button>
+			</div>
+		</g:if>
 		<div class="pagination">
 			<g:if test="${scoreInstanceTotal <= params.max}">
     			<span class="currentStep">1</span>

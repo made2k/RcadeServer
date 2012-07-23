@@ -47,7 +47,23 @@ class UserController {
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
 	def index() {
-		redirect(action: "list", params: params)
+		switch(request.method){
+			case "DELETE":
+				if(params.userId){
+					def user = User.findById(params.userId)
+					if(user){
+						user.delete()
+						render "Successfully Deleted."
+					}else{
+						response.status = 404 //Not Found
+						render "${params.userId} not found."
+					}
+				}else{
+					response.status = 400 //Bad Request
+					render "DELETE request must include the user's ID\nExample: /rest/user/userId"
+				}
+				break
+		}
 	}
 
 	def list() {
@@ -66,7 +82,7 @@ class UserController {
 			return
 		}
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+		flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.login])
 		redirect(action: "show", id: userInstance.id)
 	}
 
@@ -131,8 +147,9 @@ class UserController {
 		}
 
 		try {
+			String userLogin = userInstance.login
 			userInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), params.id])
+			flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), userLogin])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {

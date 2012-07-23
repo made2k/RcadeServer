@@ -36,8 +36,8 @@ class Score {
 	static List<Score> getLatest() {
 		List<Score> allScores = Score.getAll()
 		allScores.sort{a, b -> b.dateCreated <=> a.dateCreated}
-		if (allScores.size() < 15)
+		if (allScores.size() < 10)
 			return allScores.subList(0, allScores.size())
-		return allScores.subList(0, 15)
+		return allScores.subList(0, 10)
 	}
 }

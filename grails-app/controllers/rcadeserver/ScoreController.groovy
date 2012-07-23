@@ -35,6 +35,7 @@ class ScoreController {
 		switch(request.method){
 			case "POST":
 				def score = new Score()
+				
 				score.score = new BigInteger(params.score)
 				score.arcadeName = params.arcadeName
 				score.cabinetID = params.cabinetID
@@ -108,7 +109,7 @@ class ScoreController {
 			return
 		}
 
-		flash.message = message(code: 'default.created.message', args: [message(code: 'score.label', default: 'Score'), scoreInstance.id])
+		flash.message = message(code: 'generic.created.message', args: [message(code: 'score.label', default: 'Score'), scoreInstance.id])
 		redirect(action: "show", id: scoreInstance.id)
 	}
 
@@ -174,7 +175,7 @@ class ScoreController {
 
 		try {
 			scoreInstance.delete(flush: true)
-			flash.message = message(code: 'default.deleted.message', args: [message(code: 'score.label', default: 'Score'), params.id])
+			flash.message = message(code: 'generic.deleted.message', args: [message(code: 'score.label', default: 'Score'), params.id])
 			redirect(action: "list")
 		}
 		catch (DataIntegrityViolationException e) {
