@@ -28,18 +28,7 @@ class ConnectionController {
 				break
 
 			case "PUT":
-				println "setting active"
-				setActive()
-			//				def connection = Connection.findById(params.connectionId)
-			//				connection.properties = params.connection
-			//				render connection.properties
-			//				if(connection.save()) {
-			//					response.status = 200 //Okay
-			//					render connection as XML
-			//				} else {
-			//					response.status = 500 //Internal server error
-			//					render "Could not update Connection due to errors:\n ${connection.errors}"
-			//				}
+				println "Putting"
 				break
 
 			case "DELETE":
@@ -68,17 +57,6 @@ class ConnectionController {
 					render "DELETE request must include the connection's IP\nExample: /rest/connection/\"127.0.0.1\""
 				}
 				break
-		}
-	}
-
-	def setActive(){
-		if(params.ip){
-			def connection = Connection.findByIpAddress(params.ip)
-			connection.setActive(true)
-			response.status = 200
-			render "Still connected"
-		} else {
-			response.status = 404
 		}
 	}
 

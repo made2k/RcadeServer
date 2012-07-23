@@ -48,11 +48,16 @@ class ScheduledTasksJob {
 
 
 	def execute() {
-		String popularGames = getPopularGames()
-		println popularGames + "\n"
-		String currentDir = new File(".").getAbsolutePath()
-		currentDir = currentDir.substring(0, currentDir.length()-1)
-		def cmd = ['python', currentDir + "/SupportScripts/PostToYammer.py", popularGames]
+		def connectionList = Connection.getAll()
+		for(x in connectionList){
+			println x.ipAddress + " is active: " + x.active
+		}
+	
+//		String popularGames = getPopularGames()
+//		println popularGames + "\n"
+//		String currentDir = new File(".").getAbsolutePath()
+//		currentDir = currentDir.substring(0, currentDir.length()-1)
+//		def cmd = ['python', currentDir + "/SupportScripts/PostToYammer.py", popularGames]
 		//cmd.execute()
 	}
 
