@@ -17,7 +17,8 @@ class UrlMappings {
 		
 		"/rest/game/$romName?"(controller:"game", action:"index")
 		"/rest/game/RSS/$romName/$playerName?"(controller:"game", action:"RSS")
-		"/rest/player/$name?"(controller:"player", action:"index")	//Need to change with RFID
+		"/rest/player/$playerId?"(controller:"player", action:"index")	//Need to change with RFID
+		"/rest/player/rcade/$name?"(controller:"player", action:"index")
 		"/rest/player/RSS/$playerName/$romName?"(controller:"player", action:"RSS")
 		"/rest/score/$scoreId?"(controller:"score", action:"index")
 		"/rest/game/$romName/highscore"(controller:"game", action:"highScoreList")

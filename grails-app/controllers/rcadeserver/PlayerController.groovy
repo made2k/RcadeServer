@@ -42,7 +42,7 @@ class PlayerController {
 				break
 
 			case "PUT":
-				def player = Player.findByPlayerID(params.playerID)
+				def player = Player.findByPlayerID(params.playerId)
 				player.properties = params.player
 				render player.properties
 				if(player.save()) {
@@ -55,14 +55,26 @@ class PlayerController {
 				break
 
 			case "DELETE":
-				if(params.playerID){
-					def player = Player.findByPlayerID(params.playerID)
+				if(params.playerId){
+					print 'in here'
+					def player = Player.findById(params.playerId)
+					print params.playerId
+					print player
 					if(player){
 						player.delete()
 						render "Successfully Deleted."
 					}else{
 						response.status = 404 //Not Found
 						render "${params.playerID} not found."
+					}
+				}else if(params.name){
+					def player = Player.findByName(params.name)
+					if(player){
+						player.delete()
+						render "Successfully Deleted."
+					}else{
+						response.status = 404 //Not Found
+						render "${params.name} not found."
 					}
 				}else{
 					response.status = 400 //Bad Request
@@ -71,7 +83,7 @@ class PlayerController {
 				break
 		}
 	}
-	
+
 	def RSS = {
 		// Find scores for this game
 		// Find x most recent scores for this game
@@ -94,7 +106,7 @@ class PlayerController {
 			// Should eventually point back to a reasonable web page
 			link = "dummy.com"
 			description = "High scores set by " + thePlayer.name
-			
+
 			latestScores.each(){ score ->
 				// If a game was specified but this score does not match, don't render it
 				if(params.romName != null && score.game != theGame){
