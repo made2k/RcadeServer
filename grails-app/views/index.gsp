@@ -147,8 +147,8 @@ p {
 				arcade games, and allows you to compete with your friends across
 				different machines. Battle it out for the high score!</p>
 		</div>
-		<hr>
 	</div>
+	<hr>
 	<h1 id="LSheader" class="center">
 		Latest Scores
 	</h1>
