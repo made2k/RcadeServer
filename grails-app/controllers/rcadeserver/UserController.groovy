@@ -126,8 +126,10 @@ class UserController {
 				return
 			}
 		}
-
+		
+		params.password = params.password.encodeAsSHA()
 		userInstance.properties = params
+		
 
 		if (!userInstance.save(flush: true)) {
 			render(view: "edit", model: [userInstance: userInstance])

@@ -33,7 +33,7 @@ class AdminFilters {
 					def decodedPair =  new String(new sun.misc.BASE64Decoder().decodeBuffer(encodedPair));
 					def credentials = decodedPair.split(':')
 					def user = User.findByLoginAndPassword(credentials[0], credentials[1].encodeAsSHA())
-					if(!user.isAdmin()){
+					if(!user?.isAdmin()){
 						render(status: "401")
 						return false
 					}

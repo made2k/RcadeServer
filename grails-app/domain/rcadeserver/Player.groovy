@@ -7,7 +7,7 @@ class Player {
 	}
 
 	static hasMany = [scores:Score]
-
+	
 	String playerID
 	String name
 
