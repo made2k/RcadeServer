@@ -3,7 +3,7 @@ import java.util.Date;
 class Player {
 	static constraints = {
 		name(blank:false)
-		playerID(blank:false, display:false, unique:true)
+		playerID(blank:false, display:false)
 	}
 
 	static hasMany = [scores:Score]

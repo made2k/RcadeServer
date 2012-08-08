@@ -1,5 +1,7 @@
 package rcadeserver
 
+import javax.net.ssl.SSLEngineResult.Status;
+
 import grails.converters.XML
 import org.springframework.dao.DataIntegrityViolationException
 
@@ -31,7 +33,6 @@ class PlayerController {
 				}
 				else{
 					response.status = 500 //Internal Server Error
-					println player.errors
 					render "Could not create new Player due to errors:\n ${player.errors}"
 				}
 				break
@@ -42,9 +43,15 @@ class PlayerController {
 				break
 
 			case "PUT":
-				def player = Player.findByPlayerID(params.playerId)
+				def player = Player.findByPlayerIDAndName(params.playerId, params.name)
+				if(!player){
+					response.status = 404
+					render "Player ${params.name} not found"
+					break
+				}
+				
 				player.properties = params.player
-				render player.properties
+				
 				if(player.save()) {
 					response.status = 200 //Okay
 					render player as XML
@@ -56,10 +63,7 @@ class PlayerController {
 
 			case "DELETE":
 				if(params.playerId){
-					print 'in here'
 					def player = Player.findById(params.playerId)
-					print params.playerId
-					print player
 					if(player){
 						player.delete()
 						render "Successfully Deleted."
