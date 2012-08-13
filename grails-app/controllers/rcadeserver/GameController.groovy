@@ -89,14 +89,6 @@ class GameController {
 		}
 	}
 
-	def yammer = {
-		String currentDir = new File(".").getAbsolutePath()
-		currentDir = currentDir.substring(0, currentDir.length()-1)
-		def cmd = ['python', currentDir + "/SupportScripts/PostToYammer.py", 'this is a test from grails!']
-		cmd.execute()
-		redirect(action: "list")
-	}
-
 	def customXmlList = {
 		def list = Game.list()
 		render(contentType:"text/xml"){
@@ -122,7 +114,6 @@ class GameController {
 			render "Could not find game ${params.romName}"
 		}
 	}
-
 
 	def index = {
 		switch(request.method){

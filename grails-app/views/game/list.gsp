@@ -44,7 +44,7 @@ $(document).ready(function()
 				<tr>
 					<!-- <g:sortableColumn property="romName" title="${message(code: 'game.romName.label', default: 'Rom Name')}" />  -->
 					<g:if test="${session?.user?.isAdmin()}">
-						<th class="nohov"><input type="checkbox" name="batch-all"></th>
+						<th class="nohov"> <!-- <input type="checkbox" name="batch-all">  --></th>
 					</g:if>
 					<g:sortableColumn property="gameName"
 						title="${message(code: 'game.gameName.label', default: 'Game Name')}" />

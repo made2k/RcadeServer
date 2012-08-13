@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 
 class ScheduledTasksJob {
 	static triggers = {
-		//simple name: 'mySimpleTrigger', startDelay: 1000, repeatInterval: 15000
+//		simple name: 'mySimpleTrigger', startDelay: 1000, repeatInterval: 15000
 		cron name: 'cronTrigger', cronExpression: "0 30 17 ? * MON-FRI *"
 	}
 
@@ -14,6 +14,8 @@ class ScheduledTasksJob {
 		//Get count param as integer
 		def num = 3
 		def allScores = Score.getAll()
+		if(allScores.size() == 0)
+			return ""
 		//Empty map
 		def counts = [:]
 		//Tally occurrences of games in the score listings
@@ -35,7 +37,6 @@ class ScheduledTasksJob {
 			popGames.add(g)
 		}
 
-		println popGames
 		def today = new Date().format('EEEEE MMMMM dd, yyyy')
 		String popularGames = "High Scores for " + today + "\n\n"
 		for(game in popGames) {
@@ -46,19 +47,16 @@ class ScheduledTasksJob {
 		return popularGames
 	}
 
-
 	def execute() {
-		def connectionList = Connection.getAll()
-		for(x in connectionList){
-			println x.ipAddress + " is active: " + x.active
+		String popularGames = getPopularGames()
+		//		println popularGames + "\n"
+		String currentDir = new File(".").getAbsolutePath()
+		currentDir = currentDir.substring(0, currentDir.length()-1)
+		boolean exists = (new File(currentDir + "/SupportScripts/PostToYammer.py")).exists();
+		if(exists){
+			def cmd = ['python', currentDir + "/SupportScripts/PostToYammer.py", popularGames]
+			cmd.execute()
 		}
-	
-//		String popularGames = getPopularGames()
-//		println popularGames + "\n"
-//		String currentDir = new File(".").getAbsolutePath()
-//		currentDir = currentDir.substring(0, currentDir.length()-1)
-//		def cmd = ['python', currentDir + "/SupportScripts/PostToYammer.py", popularGames]
-		//cmd.execute()
 	}
 
 }

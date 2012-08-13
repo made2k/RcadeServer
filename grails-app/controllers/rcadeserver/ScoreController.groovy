@@ -49,6 +49,7 @@ class ScoreController {
 				else{
 					response.status = 500 //Internal Server Error
 					render "Could not create new Score due to errors:\n ${score.errors}"
+					println score.errors
 				}
 				break
 

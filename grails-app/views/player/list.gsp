@@ -44,7 +44,7 @@ $(document).ready(function()
 				<tr>
 					<!-- <g:sortableColumn property="playerID" title="${message(code: 'player.playerID.label', default: 'Player ID')}" /> -->
 					<g:if test="${session?.user?.isAdmin()}">
-						<th class="nohov"><input type="checkbox" name="batch-all"></th>
+						<th class="nohov"><!-- <input type="checkbox" name="batch-all">  --></th>
 					</g:if>
 					<g:sortableColumn property="name"
 						title="${message(code: 'player.name.label', default: 'Name')}" />

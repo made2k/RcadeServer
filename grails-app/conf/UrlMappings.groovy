@@ -12,7 +12,6 @@ class UrlMappings {
 		"/player"(controller:"player", action:"list")
 		"/score"(controller:"score", action:"list")
 		"/user"(controller:"user", action:"list")
-		"/game/post"(controller:"game", action:"yammer")
 		"/connection"(controller:"connection", action:"list")
 		
 		"/rest/game/$romName?"(controller:"game", action:"index")

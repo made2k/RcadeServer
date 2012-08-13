@@ -9,19 +9,6 @@ class PlayerController {
 
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-	//    def index() {
-	//        redirect(action: "list", params: params)
-	//    }
-
-
-	def xmlList = {
-		render Player.list() as XML
-	}
-
-	def xmlShow = {
-		render Player.get(params.id) as XML
-	}
-
 	def index = {
 		switch(request.method){
 			case "POST":

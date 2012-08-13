@@ -21,7 +21,7 @@ class AdminFilters {
 
 		basicAuth(controller:'*', action:"index"){
 			before = {
-				if(request.get && !request.forwardURI.contains("rest/user") && !request.forwardURI.contains("rest/connection")) //Allow get requests from anyone
+				if(request.get && !request.forwardURI.contains("rest/user") && !request.forwardURI.contains("rest/connection") && !request.forwardURI.contains("rest/player")) //Allow get requests from anyone
 					return true
 				if(!session?.user?.admin){
 					def authString = request.getHeader('Authorization')
