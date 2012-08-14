@@ -9,13 +9,16 @@ class BootStrap
 			if(admin.hasErrors())
 				println admin.errors
 		}
-		
-		def coward = new Player()
-		coward.name = "Anonymous Coward"
-		coward.playerID = "0"
-		coward.save()
-		if(coward.hasErrors())
-			println coward.errors
+
+		def coward = Player.findByName("Anonymous Coward")
+		if(!coward){
+			coward = new Player()
+			coward.name = "Anonymous Coward"
+			coward.playerID = "0"
+			coward.save()
+			if(coward.hasErrors())
+				println coward.errors
+		}
 	}
 
 	def destroy =
